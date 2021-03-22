@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
+
 function SubjectAddModal() {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -21,8 +22,8 @@ function SubjectAddModal() {
   };
 
   return (
-    <div >
-      <Button type="default" onClick={showModal}>
+    <div>
+      <Button type="primary" onClick={showModal}>
         강의 추가하기
       </Button>
       <Modal

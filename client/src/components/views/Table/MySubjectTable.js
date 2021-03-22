@@ -1,6 +1,5 @@
 import React from "react";
 import { Table } from "antd";
-import SubjectAddModal from "./SubjectAddModal";
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 
@@ -8,13 +7,7 @@ const container = css`
   width: 70%;
 `;
 
-const modalPosition = css`
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: flex-end;
-`;
-
-function ApplyTablePage() {
+function MySubjectTable() {
   const columns = [
     {
       title: "학년",
@@ -128,18 +121,16 @@ function ApplyTablePage() {
 
   return (
     <div css={container}>
-       <h1>강의 목록</h1>
+      <h1>내 강의</h1>
       <Table
         columns={columns}
         dataSource={data}
         sticky
         scroll={{ x: 1000, y: 300 }}
+        pagination={false}
       />
-      <div css={modalPosition}>
-        <SubjectAddModal />
-      </div>
     </div>
   );
 }
 
-export default ApplyTablePage;
+export default MySubjectTable;
