@@ -28,7 +28,7 @@ function NavBar() {
         }}
       >
         <div className="menu__logo">
-          <a href="/">Logo</a>
+          <a href="/"><img src='https://www.sungkyul.ac.kr/sites/skukr/images/common/top-logo.png' alt='logo'/></a>
         </div>
         <div className="menu__container">
           {/* <div className="menu_left">
@@ -67,16 +67,17 @@ function NavBar() {
           backgroundColor: "#003956",
         }}
       >
+        
         <ul
           style={{
             listStyle: "none",
-
-            margin: "68px auto",
+            margin: "0 auto",
             padding: "0",
             color: "#fff",
             textAlign: "center",
           }}
         >
+          <li style={{ marginBottom: "1rem",height:'88px',width:'130px',backgroundColor:'#272b31' }}></li>
           <li style={{ marginBottom: "3rem" }}>
             <Link to="/" style={{ color: "#fff" }}>
               <Icon

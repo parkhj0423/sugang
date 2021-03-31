@@ -19,7 +19,7 @@ const container = css`
 
 const line = css`
   margin: 20px 0;
-  border-bottom: 3px solid;
+  border-bottom: 3px solid #003956;
 `;
 
 const form = css`
@@ -41,7 +41,7 @@ const input = css`
 const submitButton = css`
   width: 100%;
   height: 3rem;
-  background-color: black;
+  background-color: #003956;
   color: #fff;
   border: none;
   border-radius: 5px;

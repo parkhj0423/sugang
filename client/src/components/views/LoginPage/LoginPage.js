@@ -8,18 +8,26 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form, Icon, Checkbox } from "antd";
 import { useDispatch } from "react-redux";
+import InfoPage from "./InfoPage";
+import NoticePage from "./NoticePage";
 
 const main = css`
+  width: 70%;
+  margin: 0 auto;
+`;
+
+const background = css`
   background-image: url("https://www.sungkyul.ac.kr/sites/skukr/atchmnfl_mngr/imageSlide/25/temp_1614322445771100.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+
   position: relative;
   height: 600px;
 `;
 
 const container = css`
   position: absolute;
-  right: 300px;
+  left: 300px;
   top: 3rem;
   text-align: center;
   width: 350px;
@@ -65,7 +73,7 @@ const registerButton = css`
   border: #e8e8e8;
   border-radius: 30px;
   height: 3.5rem;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 `;
 
 const link = css`
@@ -74,6 +82,33 @@ const link = css`
   &:hover {
     color: #fff;
   }
+`;
+
+const title = css`
+  margin: 20px 0 30px 0;
+  padding: 8px 0 18px 0;
+  border-top: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  font-size: 60px;
+  line-height: 1;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 2px;
+  position: absolute;
+  right: 300px;
+  top: 100px;
+`;
+
+const subTitle = css`
+  display: block;
+  margin-bottom: 25px;
+  font-family: "Noto Thin";
+  font-size: 36px;
+  color: #2a2a2a;
+  line-height: 1.2;
+  position: absolute;
+  right: 400px;
+  top: 250px;
 `;
 
 function LoginPage(props) {
@@ -151,9 +186,25 @@ function LoginPage(props) {
             handleSubmit,
           } = props;
           return (
-            <div css={main}>
+            <div css={background}>
+              <strong css={title}>SKUniverCity</strong>
+              <strong css={subTitle}>
+                교육혁신도시
+                <br /> 미래교육혁신도시
+                <br /> SKU{" "}
+              </strong>
               <div css={container}>
-              <div css={line}/>
+                <strong
+                  style={{
+                    fontFamily: "Noto Thin",
+                    fontSize: "1.5rem",
+                    color: "#2a2a2a",
+                    lineHeight: "1.2",
+                  }}
+                >
+                  학부 수강신청
+                </strong>
+                <div css={line} />
                 <form onSubmit={handleSubmit} css={form}>
                   <Form.Item required>
                     <input
@@ -233,7 +284,7 @@ function LoginPage(props) {
                         onChange={handleRememberMe}
                         checked={rememberMe}
                       >
-                        Remember me
+                        이메일 기억하기
                       </Checkbox>
                     </div>
                   </Form.Item>
@@ -248,6 +299,10 @@ function LoginPage(props) {
           );
         }}
       </Formik>
+      <div css={main}>
+        <InfoPage />
+        <NoticePage />
+      </div>
     </>
   );
 }
