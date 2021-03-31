@@ -1,13 +1,48 @@
-import React from "react";
-import { Table } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Table } from "antd";
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
+import axios from "axios";
 
 const container = css`
   width: 70%;
+  margin-bottom: 5rem;
 `;
 
 function MySubjectTable() {
+  const [MySubject, setMySubject] = useState([]);
+
+  let data = [];
+  for (let i = 0; i < MySubject.length; i++) {
+    data.push({
+      key: i,
+      grade: `${MySubject[i].grade}학년`,
+      subjectName: MySubject[i].subjectName,
+      professorName: MySubject[i].professorName,
+      subjectType: MySubject[i].subjectType,
+      subjectPoint: MySubject[i].subjectPoint,
+      date: MySubject[i].date,
+      subjectCode: MySubject[i].subjectCode,
+      classroom: MySubject[i].classroom,
+      rate: MySubject[i].rate,
+      countApply: `${i} 명`,
+      limitApply: MySubject[i].limitApply,
+      competitionRate: `${i} : 1`,
+    });
+  }
+
+  useEffect(() => {
+    let variable = localStorage.getItem("userId");
+    axios.post("/api/subject/getSubject", variable).then((response) => {
+      if (response.data.success) {
+        setMySubject(response.data.result);
+        console.log(response.data.result);
+      } else {
+        alert("불러오기 실패");
+      }
+    });
+  }, []);
+
   const columns = [
     {
       title: "학년",
@@ -52,7 +87,7 @@ function MySubjectTable() {
       title: "과목 코드",
       dataIndex: "subjectCode",
       key: "subjectCode",
-      width: 75,
+      width: 85,
     },
     {
       title: "강의실",
@@ -85,39 +120,32 @@ function MySubjectTable() {
       width: 75,
     },
     {
-      title: "신청",
-      key: "operationa",
+      title: "취소",
+      key: "cancel",
       fixed: "right",
       width: 60,
-      render: () => <a href="#">신청</a>,
-    },
-    {
-      title: "장바구니 담기",
-      key: "operation",
-      fixed: "right",
-      width: 120,
-      render: () => <a href="#">장바구니 담기</a>,
+      render: (record) => (
+        <Button style={{ padding: "0 5px" }} type='danger' onClick={() => onCancelClick(record)}>
+          취소
+        </Button>
+      ),
     },
   ];
 
-  const data = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      grade: `${i}학년`,
-      subjectName: `React 기초${i}`,
-      professorName: "박현우",
-      subjectType: "전공/필수",
-      subjectPoint: "3학점",
-      date: "화/4-6",
-      subjectCode: "12121",
-      classroom: "중/102",
-      rate: `${i} / 100`,
-      countApply: `${i} 명`,
-      limitApply: "100 명",
-      competitionRate: `${i} : 1`,
+  const onCancelClick = (data) => {
+    const { subjectName } = data;
+
+    let variable = {
+      subjectName,
+    };
+    console.log(data);
+    axios.post("/api/subject/deleteSubject", variable).then((response) => {
+      if (response.data.success) {
+      } else {
+        alert("취소 실패");
+      }
     });
-  }
+  };
 
   return (
     <div css={container}>

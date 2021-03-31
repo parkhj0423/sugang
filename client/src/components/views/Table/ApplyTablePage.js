@@ -1,8 +1,9 @@
-import React from "react";
-import { Table } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Table } from "antd";
 import SubjectAddModal from "./SubjectAddModal";
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
+import axios from "axios";
 
 const container = css`
   width: 70%;
@@ -15,6 +16,39 @@ const modalPosition = css`
 `;
 
 function ApplyTablePage() {
+  const [MySubject, setMySubject] = useState([]);
+
+  let data = [];
+  for (let i = 0; i < 20; i++) {
+    data.push({
+      key: i,
+      grade: `${i}`,
+      subjectName: `React 기초${i}`,
+      professorName: "박현우",
+      subjectType: "전공/필수",
+      subjectPoint: 3,
+      date: "화/4-6",
+      subjectCode: "12121",
+      classroom: "중/102",
+      rate: `${i}`,
+      countApply: `${i} 명`,
+      limitApply: 30,
+      competitionRate: `${i} : 1`,
+    });
+  }
+
+  useEffect(() => {
+    let variable = localStorage.getItem("userId");
+    axios.post("/api/subject/getSubject", variable).then((response) => {
+      if (response.data.success) {
+        setMySubject(response.data.result);
+        console.log(response.data.result);
+      } else {
+        alert("불러오기 실패");
+      }
+    });
+  }, []);
+
   const columns = [
     {
       title: "학년",
@@ -59,7 +93,7 @@ function ApplyTablePage() {
       title: "과목 코드",
       dataIndex: "subjectCode",
       key: "subjectCode",
-      width: 75,
+      width: 85,
     },
     {
       title: "강의실",
@@ -91,44 +125,71 @@ function ApplyTablePage() {
       key: "competitionRate",
       width: 75,
     },
-    {
-      title: "신청",
-      key: "operationa",
-      fixed: "right",
-      width: 60,
-      render: () => <a href="#">신청</a>,
-    },
+
     {
       title: "장바구니 담기",
       key: "operation",
       fixed: "right",
-      width: 120,
-      render: () => <a href="#">장바구니 담기</a>,
+      width: 150,
+      render: (record) => (
+        <Button style={{ padding: "0 5px" }} type='primary' onClick={() => onApplyClick(record)}>
+          장바구니 담기
+        </Button>
+      ),
     },
   ];
 
-  const data = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      grade: `${i}학년`,
-      subjectName: `React 기초${i}`,
-      professorName: "박현우",
-      subjectType: "전공/필수",
-      subjectPoint: "3학점",
-      date: "화/4-6",
-      subjectCode: "12121",
-      classroom: "중/102",
-      rate: `${i} / 100`,
-      countApply: `${i} 명`,
-      limitApply: "100 명",
-      competitionRate: `${i} : 1`,
+  const onApplyClick = (data) => {
+    const {
+      grade,
+      subjectName,
+      professorName,
+      subjectType,
+      subjectPoint,
+      date,
+      subjectCode,
+      classroom,
+      rate,
+      limitApply,
+    } = data;
+
+    let variable = {
+      user: localStorage.getItem("userId"),
+      grade,
+      subjectName,
+      professorName,
+      subjectType,
+      subjectPoint,
+      date,
+      subjectCode,
+      classroom,
+      rate,
+      limitApply,
+    };
+
+    axios.post("/api/subject/applySubject", variable).then((response) => {
+      if (response.data.success) {
+      } else {
+        console.log(response.data.err);
+        alert("신청 실패");
+      }
     });
+    console.log(data);
+  };
+
+  let subjectData = [];
+  subjectData = data.filter(
+    (item) => item.subjectName === MySubject.subjectName
+  );
+  for (let i = 0; i < data.length; i++) {
+    console.log(data[i].subjectName);
   }
+  console.log(MySubject);
+  console.log(subjectData);
 
   return (
     <div css={container}>
-       <h1>강의 목록</h1>
+      <h1>강의 목록</h1>
       <Table
         columns={columns}
         dataSource={data}

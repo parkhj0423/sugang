@@ -3,18 +3,13 @@ import { Button, Modal } from "antd";
 
 function SubjectAddModal() {
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const showModal = () => {
     setVisible(true);
   };
 
   const handleOk = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setVisible(false);
-    }, 1000);
+    setVisible(false);
   };
 
   const handleCancel = () => {
@@ -35,12 +30,7 @@ function SubjectAddModal() {
           <Button key="back" type="danger" onClick={handleCancel}>
             취소
           </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            loading={loading}
-            onClick={handleOk}
-          >
+          <Button key="submit" type="primary" onClick={handleOk}>
             확인
           </Button>,
         ]}

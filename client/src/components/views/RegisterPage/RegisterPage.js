@@ -251,7 +251,7 @@ function RegisterPage(props) {
               </Form.Item>
             </form>
             <button css={registerButton}>
-              <Link to="/login" css={link}>
+              <Link to="/" css={link}>
                 로그인하러 가기
               </Link>
             </button>

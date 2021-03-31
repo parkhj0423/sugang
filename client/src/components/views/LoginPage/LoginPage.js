@@ -6,19 +6,31 @@ import { Link, withRouter } from "react-router-dom";
 import { loginUser } from "../../../_actions/user_actions";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Form, Icon, Checkbox} from "antd";
+import { Form, Icon, Checkbox } from "antd";
 import { useDispatch } from "react-redux";
 
+const main = css`
+  background-image: url("https://www.sungkyul.ac.kr/sites/skukr/atchmnfl_mngr/imageSlide/25/temp_1614322445771100.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 600px;
+`;
+
 const container = css`
+  position: absolute;
+  right: 300px;
+  top: 3rem;
   text-align: center;
   width: 350px;
-  height: 100vh;
-  margin: 5rem auto;
+  padding: 3rem;
+  background-color: #fff;
+  border-radius: 10px;
 `;
 
 const line = css`
   margin: 20px 0;
-  border-bottom: 3px solid;
+  border-bottom: 3px solid #113769;
 `;
 
 const form = css`
@@ -40,7 +52,7 @@ const input = css`
 const submitButton = css`
   width: 100%;
   height: 3rem;
-  background-color: black;
+  background-color: #003956;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -63,7 +75,6 @@ const link = css`
     color: #fff;
   }
 `;
-
 
 function LoginPage(props) {
   const dispatch = useDispatch();
@@ -114,7 +125,7 @@ function LoginPage(props) {
                   } else {
                     localStorage.removeItem("rememberMe");
                   }
-                  props.history.push("/");
+                  props.history.push("/main");
                 } else {
                   setFormErrorMessage("계정과 비밀번호를 다시 확인해주세요");
                 }
@@ -140,96 +151,99 @@ function LoginPage(props) {
             handleSubmit,
           } = props;
           return (
-            <div css={container}>
-              <h1>간편 로그인</h1>
-              <div css={line} />
+            <div css={main}>
+              <div css={container}>
+              <div css={line}/>
+                <form onSubmit={handleSubmit} css={form}>
+                  <Form.Item required>
+                    <input
+                      id="email"
+                      placeholder="Enter your email"
+                      type="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={
+                        errors.email && touched.email
+                          ? "text-input error"
+                          : "text-input"
+                      }
+                      css={input}
+                    />
+                    {errors.email && touched.email && (
+                      <div className="input-feedback">{errors.email}</div>
+                    )}
+                  </Form.Item>
 
-              <form onSubmit={handleSubmit} css={form}>
-                <Form.Item required>
-                  <input
-                    id="email"
-                    placeholder="Enter your email"
-                    type="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={
-                      errors.email && touched.email
-                        ? "text-input error"
-                        : "text-input"
-                    }
-                    css={input}
-                  />
-                  {errors.email && touched.email && (
-                    <div className="input-feedback">{errors.email}</div>
+                  <Form.Item required>
+                    <input
+                      id="password"
+                      prefix={
+                        <Icon
+                          type="lock"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                      placeholder="Enter your password"
+                      type="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={
+                        errors.password && touched.password
+                          ? "text-input error"
+                          : "text-input"
+                      }
+                      css={input}
+                    />
+                    {errors.password && touched.password && (
+                      <div className="input-feedback">{errors.password}</div>
+                    )}
+                  </Form.Item>
+
+                  {formErrorMessage && (
+                    <label>
+                      <p
+                        style={{
+                          color: "#ff0000bf",
+                          fontSize: "0.7rem",
+                          border: "1px solid",
+                          padding: "1rem",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        {formErrorMessage}
+                      </p>
+                    </label>
                   )}
-                </Form.Item>
 
-                <Form.Item required>
-                  <input
-                    id="password"
-                    prefix={
-                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    placeholder="Enter your password"
-                    type="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={
-                      errors.password && touched.password
-                        ? "text-input error"
-                        : "text-input"
-                    }
-                    css={input}
-                  />
-                  {errors.password && touched.password && (
-                    <div className="input-feedback">{errors.password}</div>
-                  )}
-                </Form.Item>
-
-                {formErrorMessage && (
-                  <label>
-                    <p
-                      style={{
-                        color: "#ff0000bf",
-                        fontSize: "0.7rem",
-                        border: "1px solid",
-                        padding: "1rem",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      {formErrorMessage}
-                    </p>
-                  </label>
-                )}
-
-                <Form.Item>
-                  <div>
-                    <button
-                      css={submitButton}
-                      type="submit"
-                      style={{ minWidth: "100%" }}
-                      disabled={isSubmitting}
-                      onSubmit={handleSubmit}
-                    >
-                      로그인
-                    </button>
-                    <Checkbox
-                      id="rememberMe"
-                      onChange={handleRememberMe}
-                      checked={rememberMe}
-                    >
-                      Remember me
-                    </Checkbox>
-                  </div>
-                </Form.Item>
-              </form>
-              <button css={registerButton}>
-                <Link to="/register" css={link}>
-                  계정이 없으신가요? 간편가입하기
-                </Link>
-              </button>
+                  <Form.Item>
+                    <div>
+                      <button
+                        css={submitButton}
+                        type="submit"
+                        style={{ minWidth: "100%" }}
+                        disabled={isSubmitting}
+                        onSubmit={handleSubmit}
+                      >
+                        로그인
+                      </button>
+                      <Checkbox
+                        id="rememberMe"
+                        onChange={handleRememberMe}
+                        checked={rememberMe}
+                      >
+                        Remember me
+                      </Checkbox>
+                    </div>
+                  </Form.Item>
+                </form>
+                <button css={registerButton}>
+                  <Link to="/register" css={link}>
+                    계정이 없으신가요? 간편가입하기
+                  </Link>
+                </button>
+              </div>
             </div>
           );
         }}
