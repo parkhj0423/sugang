@@ -160,7 +160,7 @@ function LoginPage(props) {
                   } else {
                     localStorage.removeItem("rememberMe");
                   }
-                  props.history.push("/main");
+                  props.history.push("/applysubject");
                 } else {
                   setFormErrorMessage("계정과 비밀번호를 다시 확인해주세요");
                 }

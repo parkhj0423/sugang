@@ -7,6 +7,7 @@ import LoginPage from "./views/LoginPage/LoginPage.js";
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer"
+import MySubjectPage from './views/MySubjectpage/MySubjectPage';
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -18,7 +19,8 @@ function App() {
       <NavBar />
       <div style={{ paddingTop: '88px', paddingLeft: '130px', minHeight: 'calc(100vh - 50px)' }}>
         <Switch>
-          <Route exact path="/main" component={Auth(LandingPage, null)} />
+          <Route exact path="/applysubject" component={Auth(LandingPage, true)} />
+          <Route exact path="/mysubject/:userId" component={Auth(MySubjectPage, true)} />
           <Route exact path="/" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
         </Switch>

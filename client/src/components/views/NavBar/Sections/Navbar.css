@@ -1,14 +1,67 @@
 @import "~antd/dist/antd.css";
 
+.active {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
 .menu {
   overflow: auto;
   background-color: #003956;
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  background-color: #003956;
+}
+
+.menu_vertical {
+  position: fixed;
+  z-index: 5;
+  width: 130px;
+  height: 100%;
+  background-color: #003956;
+}
+
+.menu_vertical ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.menu_vertical ul .li_top {
+  margin-bottom: 1rem;
+  height: 88px;
+  width: 130px;
+  background-color: #272b31;
+  cursor: not-allowed;
+}
+
+.menu_vertical ul li {
+  margin-bottom: 3rem;
+}
+
+.menu_vertical ul li .link {
+  color: #fff;
+}
+
+.menu_vertical ul .li_content:hover {
+  background-color: #b6985a;
+}
+
+.menu_vertical ul li .icon {
+  font-size: 30px;
+  margin-bottom: 1rem;
 }
 
 .menu__logo {
-  margin-left: 130px;
   width: 150px;
   float: left;
+  margin-left: 130px;
 }
 
 .menu__logo a {

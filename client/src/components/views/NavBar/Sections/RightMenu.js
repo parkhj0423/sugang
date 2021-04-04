@@ -38,7 +38,7 @@ function RightMenu(props) {
         <Menu.Item key="logout">
           <Icon
             type="unlock"
-            style={{ fontSize: "3rem",margin:'16px 2rem',color:'#fff' }}
+            style={{ fontSize: "2rem",margin:'30px 2rem',color:'#fff' }}
             onClick={logoutHandler}
           />
         </Menu.Item>

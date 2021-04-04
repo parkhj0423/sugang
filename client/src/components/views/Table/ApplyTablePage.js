@@ -181,9 +181,7 @@ function ApplyTablePage() {
   subjectData = data.filter(
     (item) => item.subjectName === MySubject.subjectName
   );
-  for (let i = 0; i < data.length; i++) {
-    console.log(data[i].subjectName);
-  }
+  
   console.log(MySubject);
   console.log(subjectData);
 
