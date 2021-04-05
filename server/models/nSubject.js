@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const subjectSchema = mongoose.Schema(
+const nsubjectSchema = mongoose.Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    department: {
+      type: String,
+    },
     grade: {
-      type: Number,
+      type: String,
     },
     subjectName: {
       type: String,
@@ -26,21 +29,30 @@ const subjectSchema = mongoose.Schema(
       type: String,
     },
     subjectCode: {
-      type: Number,
+      type: String,
     },
     classroom: {
       type: String,
     },
-    rate: {
-      type: Number,
+    division: {
+      type: String,
     },
+    // rate: {
+    //   type: String,
+    // },
+    // countApply: {
+    //   type: String,
+    // },
     limitApply: {
-      type: Number,
+      type: String,
     },
+    // competitionRate: {
+    //   type: String,
+    // },
   },
   { timestamps: true }
 );
 
-const Subject = mongoose.model("Subject", subjectSchema);
+const nSubject = mongoose.model("nSubject", nsubjectSchema);
 
-module.exports = { Subject };
+module.exports = { nSubject };

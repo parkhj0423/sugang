@@ -1,41 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Button, Icon, message, Table } from "antd";
-import axios from "axios";
+import { Button, Icon, Table, message } from "antd";
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
-import { useDispatch } from "react-redux";
+import axios from "axios";
 import {
   container,
   tableHeader,
   tableHeaderRightMenu,
   tableHeaderTitle,
 } from "../Table/TableStyle";
-import {
-  deleteMySubject,
-  getMySubject,
-} from "../../../_actions/subject_actions";
+import { useDispatch } from "react-redux";
+import { applySubject, getSubject } from "../../../_actions/subject_actions";
 
-function MySubjectPage(props) {
-  const userId = props.match.params.userId;
+function ApplyTablePage() {
   const dispatch = useDispatch();
-  let totalPoint = 0;
-
   const [MySubject, setMySubject] = useState([]);
 
   useEffect(() => {
-    dispatch(getMySubject(userId)).then((response) => {
+    dispatch(getSubject()).then((response) => {
       if (response.payload.success) {
-        message.success("내 강의 불러오기 성공");
+        message.success("강의 시간표 불러오기 성공");
         setMySubject(response.payload.result);
       } else {
-        message.error("불러오기 실패");
+        message.error("강의 시간표 불러오기 실패");
       }
     });
   }, []);
-
-  for (let i = 0; i < MySubject.length; i++) {
-    totalPoint += MySubject[i].subjectPoint;
-  }
 
   let data = [];
   for (let i = 0; i < MySubject.length; i++) {
@@ -82,7 +72,7 @@ function MySubjectPage(props) {
     },
     {
       title: "교수명",
-      width: 120,
+      width: 130,
       dataIndex: "professorName",
       key: "professorName",
       fixed: "left",
@@ -103,7 +93,7 @@ function MySubjectPage(props) {
       title: "요일",
       dataIndex: "date",
       key: "date",
-      width: 70,
+      width: 120,
     },
     {
       title: "과목 코드",
@@ -115,7 +105,7 @@ function MySubjectPage(props) {
       title: "강의실",
       dataIndex: "classroom",
       key: "classroom",
-      width: 150,
+      width: 200,
     },
     {
       title: "분반",
@@ -147,35 +137,61 @@ function MySubjectPage(props) {
       key: "competitionRate",
       width: 75,
     },
+
     {
-      title: "취소",
-      key: "cancel",
+      title: "장바구니 담기",
+      key: "operation",
       fixed: "right",
-      width: 60,
+      width: 150,
       render: (record) => (
         <Button
           style={{ padding: "0 5px" }}
-          type="danger"
-          onClick={() => onCancelClick(record)}
+          type="primary"
+          onClick={() => onApplyClick(record)}
         >
-          취소
+          장바구니 담기
         </Button>
       ),
     },
   ];
 
-  const onCancelClick = (data) => {
-    const { subjectName } = data;
+  const onApplyClick = (data) => {
+    const {
+      department,
+      grade,
+      subjectName,
+      professorName,
+      subjectType,
+      subjectPoint,
+      date,
+      subjectCode,
+      classroom,
+      division,
+      // rate,
+      // limitApply,
+    } = data;
 
     let variable = {
+      user: localStorage.getItem("userId"),
+      department,
+      grade,
       subjectName,
+      professorName,
+      subjectType,
+      subjectPoint,
+      date,
+      subjectCode,
+      classroom,
+      division,
+      // rate,
+      // limitApply,
     };
 
-    dispatch(deleteMySubject(variable)).then((response) => {
+    dispatch(applySubject(variable)).then((response) => {
       if (response.payload.success) {
-        message.success("삭제 성공");
+        message.success("신청 성공");
       } else {
-        message.success("삭제 실패");
+        message.error("신청 실패");
       }
     });
   };
@@ -183,19 +199,17 @@ function MySubjectPage(props) {
   return (
     <div css={container}>
       <div css={tableHeader}>
-        <p css={tableHeaderTitle}>수강신청내역</p>
+        <p css={tableHeaderTitle}>수강신청</p>
         <div css={tableHeaderRightMenu}>
           <span>
             총 신청가능 학점 &nbsp;<b>21</b>&nbsp;학점
           </span>
           <Icon type="pause" style={{ paddingTop: "4px" }} />
           <span>
-            신청과목 수&nbsp; <b>{MySubject.length}</b>&nbsp; 과목{" "}
+            {/* 신청과목 수&nbsp; <b>{MySubject.length}</b>&nbsp; 과목{" "} */}
           </span>
           <Icon type="pause" style={{ paddingTop: "4px" }} />
-          <span>
-            신청 학점 &nbsp; <b>{totalPoint}</b>&nbsp; 학점
-          </span>
+          <span>{/* 신청 학점 &nbsp; <b>{totalPoint}</b>&nbsp; 학점 */}</span>
         </div>
       </div>
       <Table
@@ -203,10 +217,9 @@ function MySubjectPage(props) {
         dataSource={data}
         sticky
         scroll={{ x: 1000, y: 300 }}
-        pagination={false}
       />
     </div>
   );
 }
 
-export default MySubjectPage;
+export default ApplyTablePage;

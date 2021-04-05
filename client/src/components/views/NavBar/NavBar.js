@@ -73,7 +73,7 @@ function NavBar() {
           {localStorage.getItem("userId") && (
             <>
               <li className="li_content">
-                <Link to="/" className="link">
+                <Link to="/notice" className="link">
                   <Icon type="notification" className="icon" />
                   <p>공지사항</p>
                 </Link>
@@ -97,7 +97,7 @@ function NavBar() {
                 </Link>
               </li>
               <li className="li_content">
-                <Link to="/" className="link">
+                <Link to="/calendar" className="link">
                   <Icon type="calendar" className="icon" />
                   <p>종합시간표&nbsp; 조회</p>
                 </Link>

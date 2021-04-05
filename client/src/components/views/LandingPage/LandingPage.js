@@ -1,5 +1,5 @@
 import React from "react";
-import ApplyTablePage from "../Table/ApplyTablePage";
+import ApplyTablePage from "../ApplyTablePage/ApplyTablePage";
 
 /** @jsxFrag React.Fragment */
 /** @jsx jsx */
@@ -18,7 +18,7 @@ function LandingPage() {
   return (
     <>
       <div css={landingPageContainer}>
-        <ApplyTablePage />
+       
       </div>
     </>
   );
