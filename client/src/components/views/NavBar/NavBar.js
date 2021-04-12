@@ -85,13 +85,13 @@ function NavBar() {
                 </Link>
               </li>
               <li className="li_content">
-                <Link to="/applysubject" className="link">
+                <Link to="/subject" className="link">
                   <Icon type="hdd" className="icon" />
                   <p>수강신청</p>
                 </Link>
               </li>
               <li className="li_content">
-                <Link to={`/mysubject/${userId}`} className="link">
+                <Link to={`/subject/${userId}`} className="link">
                   <Icon type="schedule" className="icon" />
                   <p>수강신청 내역</p>
                 </Link>

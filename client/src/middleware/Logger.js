@@ -4,4 +4,4 @@ const Logger = store => next => action =>{
     return result
 }
 
-export default Logger
+export default Logger   

@@ -160,7 +160,7 @@ function LoginPage(props) {
                   } else {
                     localStorage.removeItem("rememberMe");
                   }
-                  props.history.push("/applysubject");
+                  props.history.push("/subject");
                 } else {
                   setFormErrorMessage("계정과 비밀번호를 다시 확인해주세요");
                 }
@@ -191,7 +191,7 @@ function LoginPage(props) {
               <strong css={subTitle}>
                 교육혁신도시
                 <br /> 미래교육혁신도시
-                <br /> SKU{" "}
+                <br /> SKU
               </strong>
               <div css={container}>
                 <strong

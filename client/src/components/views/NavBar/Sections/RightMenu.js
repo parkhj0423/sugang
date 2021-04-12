@@ -29,7 +29,6 @@ function RightMenu(props) {
         <Menu.Item key="app">
           <a href="/register">회원가입</a>
         </Menu.Item> */}
-        
       </Menu>
     );
   } else {
@@ -38,7 +37,12 @@ function RightMenu(props) {
         <Menu.Item key="logout">
           <Icon
             type="unlock"
-            style={{ fontSize: "2rem",margin:'30px 2rem',color:'#fff' }}
+            style={{
+              fontSize: "2rem",
+              margin: "25px 2rem",
+              color: "#fff",
+              boxSizing: "border-box",
+            }}
             onClick={logoutHandler}
           />
         </Menu.Item>

@@ -50,96 +50,95 @@ function ApplyTablePage() {
 
   const columns = [
     {
-      title: "학과",
+      title: <b>학과</b>,
       width: 170,
       dataIndex: "department",
       key: "department",
       fixed: "left",
     },
     {
-      title: "학년",
+      title: <b>학년</b>,
       width: 70,
       dataIndex: "grade",
       key: "grade",
       fixed: "left",
     },
     {
-      title: "과목명",
+      title: <b>과목명</b>,
       width: 250,
       dataIndex: "subjectName",
       key: "subjectName",
       fixed: "left",
     },
     {
-      title: "교수명",
-      width: 130,
+      title: <b>교수명</b>,
+      width: 120,
       dataIndex: "professorName",
       key: "professorName",
       fixed: "left",
     },
     {
-      title: "구분",
+      title: <b>구분</b>,
       width: 90,
       dataIndex: "subjectType",
       key: "subjectType",
     },
     {
-      title: "학점",
+      title: <b>학점</b>,
       dataIndex: "subjectPoint",
       key: "subjectPoint",
       width: 70,
     },
     {
-      title: "요일",
+      title: <b>요일</b>,
       dataIndex: "date",
       key: "date",
-      width: 120,
+      width: 70,
     },
     {
-      title: "과목 코드",
+      title: <b>과목 코드</b>,
       dataIndex: "subjectCode",
       key: "subjectCode",
-      width: 85,
+      width: 90,
     },
     {
-      title: "강의실",
+      title: <b>강의실</b>,
       dataIndex: "classroom",
       key: "classroom",
-      width: 200,
+      width: 150,
     },
     {
-      title: "분반",
+      title: <b>분반</b>,
       dataIndex: "division",
       key: "division",
       width: 80,
     },
     {
-      title: "평점",
+      title: <b>평점</b>,
       dataIndex: "rate",
       key: "rate",
       width: 80,
     },
     {
-      title: "신청인원",
+      title: <b>신청인원</b>,
       dataIndex: "countApply",
       key: "countApply",
       width: 90,
     },
     {
-      title: "제한인원",
+      title: <b>제한인원</b>,
       dataIndex: "limitApply",
       key: "limitApply",
       width: 90,
     },
     {
-      title: "경쟁률",
+      title: <b>경쟁률</b>,
       dataIndex: "competitionRate",
       key: "competitionRate",
       width: 75,
     },
-
     {
-      title: "장바구니 담기",
+      title: <b>장바구니 담기</b>,
       key: "operation",
       fixed: "right",
       width: 150,
@@ -147,7 +146,7 @@ function ApplyTablePage() {
         <Button
           style={{ padding: "0 5px" }}
           type="primary"
-          onClick={() => onApplyClick(record)}
+          onClick={(e) => onApplyClick(e, record)}
         >
           장바구니 담기
         </Button>
@@ -155,7 +154,8 @@ function ApplyTablePage() {
     },
   ];
 
-  const onApplyClick = (data) => {
+  const onApplyClick = (e, data) => {
+    e.currentTarget.disabled = true;
     const {
       department,
       grade,

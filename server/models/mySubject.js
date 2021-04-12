@@ -7,6 +7,9 @@ const mySubjectSchema = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    // subjectId: {
+    //   type: String,
+    // },
     department: {
       type: String,
     },

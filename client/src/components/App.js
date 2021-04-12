@@ -22,10 +22,10 @@ function App() {
       <NavBar />
       <div style={{ paddingTop: '88px', paddingLeft: '130px', minHeight: 'calc(100vh - 50px)' }}>
         <Switch>
-          <Route exact path="/applysubject" component={Auth(ApplyTablePage, true)} />
+          <Route exact path="/subject" component={Auth(ApplyTablePage, true)} />
           <Route exact path="/notice" component={Auth(NoticePage, true)} />
           <Route exact path="/calendar" component={Auth(CalendarPage, true)} />
-          <Route exact path="/mysubject/:userId" component={Auth(MySubjectPage, true)} />
+          <Route exact path="/subject/:userId" component={Auth(MySubjectPage, true)} />
           <Route exact path="/" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
         </Switch>

@@ -48,6 +48,10 @@ const nsubjectSchema = mongoose.Schema(
     },
     // competitionRate: {
     //   type: String,
+    // }, 
+    // isApply: {
+    //   type: Boolean,
+    //   default : false
     // },
   },
   { timestamps: true }
