@@ -22,19 +22,19 @@ router.post("/getMySubject", (req, res) => {
     variable = { user: req.body.user };
   }
 
-  mySubject.find(variable)
+  mySubject
+    .find(variable)
 
     .populate("user")
     .exec((err, result) => {
       if (err) {
         return res.status(400).send(err);
       }
-      return res.status(200).json({ success: true, result });
+      return res.status(200).json({ result });
     });
 });
 
 router.post("/getSubject", (req, res) => {
-
   nSubject
     .find()
 
@@ -43,26 +43,19 @@ router.post("/getSubject", (req, res) => {
       if (err) {
         return res.status(400).send(err);
       }
-      return res.status(200).json({ success: true, result });
+      return res.status(200).json({ result });
     });
 });
 
 router.post("/deleteMySubject", (req, res) => {
-  mySubject.findOneAndDelete({ subjectName: req.body.subjectName }).exec(
-    (err, result) => {
+  mySubject
+    .findOneAndDelete({ subjectName: req.body.subjectName })
+    .exec((err, result) => {
       if (err) {
         return res.status(400).send(err);
       }
       return res.status(200).json({ success: true, result });
-    }
-  );
+    });
 });
-
-
-
-
-
-
-
 
 module.exports = router;

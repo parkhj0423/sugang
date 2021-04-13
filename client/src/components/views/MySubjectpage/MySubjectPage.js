@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Icon, message, Table } from "antd";
-import axios from "axios";
+import { Button, Icon, message, Table, Popconfirm } from "antd";
+/** @jsxFrag React.Fragment */
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 import { useDispatch } from "react-redux";
@@ -16,7 +16,8 @@ import {
 } from "../../../_actions/subject_actions";
 
 function MySubjectPage(props) {
-  const userId = props.match.params.userId;
+  // const userId = props.match.params.userId;
+  const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
   let totalPoint = 0;
 
@@ -24,7 +25,7 @@ function MySubjectPage(props) {
 
   useEffect(() => {
     dispatch(getMySubject(userId)).then((response) => {
-      if (response.payload.success) {
+      if (response.payload.result) {
         message.success("내 강의 불러오기 성공");
         setMySubject(response.payload.result);
       } else {
@@ -57,6 +58,32 @@ function MySubjectPage(props) {
       // competitionRate: MySubject[i].competitionRate,
     });
   }
+
+  const refreshFunction = (subject) => {
+    setMySubject(
+      MySubject.filter(
+        (item) =>
+          item.subjectName !== subject.subjectName && item.date !== subject.date
+      )
+    );
+  };
+
+  const onCancelClick = (data) => {
+    const { subjectName } = data;
+
+    let variable = {
+      subjectName,
+    };
+
+    dispatch(deleteMySubject(variable)).then((response) => {
+      if (response.payload.result) {
+        message.success("삭제 성공");
+        refreshFunction(response.payload.result);
+      } else {
+        message.success("삭제 실패");
+      }
+    });
+  };
 
   const columns = [
     {
@@ -153,32 +180,19 @@ function MySubjectPage(props) {
       fixed: "right",
       width: 60,
       render: (record) => (
-        <Button
-          style={{ padding: "0 5px" }}
-          type="danger"
-          onClick={() => onCancelClick(record)}
+        <Popconfirm
+          title="선택한 과목을 취소하시겠습니까?"
+          onConfirm={() => onCancelClick(record)}
+          okText="예"
+          cancelText="아니요"
         >
-          취소
-        </Button>
+          <Button style={{ padding: "0 5px" }} type="danger">
+            취소
+          </Button>
+        </Popconfirm>
       ),
     },
   ];
-
-  const onCancelClick = (data) => {
-    const { subjectName } = data;
-
-    let variable = {
-      subjectName,
-    };
-
-    dispatch(deleteMySubject(variable)).then((response) => {
-      if (response.payload.success) {
-        message.success("삭제 성공");
-      } else {
-        message.success("삭제 실패");
-      }
-    });
-  };
 
   return (
     <div css={container}>

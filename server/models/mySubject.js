@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 const mySubjectSchema = mongoose.Schema(
   {
+    // key: {
+    //   type: number,
+    // },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",

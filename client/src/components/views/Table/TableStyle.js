@@ -2,7 +2,7 @@
 import { jsx, css } from "@emotion/react";
 
 export const container = css`
-  width: 90%;
+  width: 95%;
   height: 600px;
   margin: 2rem auto;
 `;

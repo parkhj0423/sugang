@@ -11,6 +11,8 @@ function Footer() {
         alignItems: "center",
         justifyContent: "center",
         fontSize: "1rem",
+        backgroundColor: "#e5e5e5",
+        marginLeft: "130px",
       }}
     >
       <p>COPYRIGHT © SUNGKYUL UNIVERSITY. ALL RIGHT RESERVED.</p>

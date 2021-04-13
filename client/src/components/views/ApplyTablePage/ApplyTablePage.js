@@ -1,52 +1,144 @@
-import React, { useEffect, useState } from "react";
-import { Button, Icon, Table, message } from "antd";
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+
+import { Button, Table, message } from "antd";
+
 import {
   container,
   tableHeader,
   tableHeaderRightMenu,
   tableHeaderTitle,
 } from "../Table/TableStyle";
-import { useDispatch } from "react-redux";
-import { applySubject, getSubject } from "../../../_actions/subject_actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  applySubject,
+  getMySubject,
+  getSubject,
+} from "../../../_actions/subject_actions";
+import MySubjectPage from "../MySubjectpage/MySubjectPage";
 
 function ApplyTablePage() {
   const dispatch = useDispatch();
-  const [MySubject, setMySubject] = useState([]);
+  const [Subject, setSubject] = useState([]);
+
+  const userId = localStorage.getItem("userId");
+  let data = [];
+  let filteredData = [];
+  const mySubject = useSelector((state) => state.subject.mySubject);
 
   useEffect(() => {
     dispatch(getSubject()).then((response) => {
-      if (response.payload.success) {
+      if (response.payload.result) {
         message.success("강의 시간표 불러오기 성공");
-        setMySubject(response.payload.result);
+        setSubject(response.payload.result);
       } else {
         message.error("강의 시간표 불러오기 실패");
       }
     });
+
+    dispatch(getMySubject(userId)).then((response) => {
+      if (response.payload.result) {
+        message.success("내 강의 불러오기 성공");
+      } else {
+        message.error("불러오기 실패");
+      }
+    });
   }, []);
 
-  let data = [];
-  for (let i = 0; i < MySubject.length; i++) {
+  for (let i = 0; i < Subject.length; i++) {
     data.push({
       key: i,
-      department: MySubject[i].department,
-      grade: MySubject[i].grade,
-      subjectName: MySubject[i].subjectName,
-      professorName: MySubject[i].professorName,
-      subjectType: MySubject[i].subjectType,
-      subjectPoint: MySubject[i].subjectPoint,
-      date: MySubject[i].date,
-      subjectCode: MySubject[i].subjectCode,
-      classroom: MySubject[i].classroom,
-      division: MySubject[i].division,
-      // rate: MySubject[i].rate,
-      // countApply: MySubject[i].countApply,
-      // limitApply: MySubject[i].limitApply,
-      // competitionRate: MySubject[i].competitionRate,
+      department: Subject[i].department,
+      grade: Subject[i].grade,
+      subjectName: Subject[i].subjectName,
+      professorName: Subject[i].professorName,
+      subjectType: Subject[i].subjectType,
+      subjectPoint: Subject[i].subjectPoint,
+      date: Subject[i].date,
+      subjectCode: Subject[i].subjectCode,
+      classroom: Subject[i].classroom,
+      division: Subject[i].division,
+      // rate: Subject[i].rate,
+      // countApply: Subject[i].countApply,
+      // limitApply: Subject[i].limitApply,
+      // competitionRate: Subject[i].competitionRate,
     });
   }
+
+  // if (mySubject !== undefined && data.length !== 0) {
+  //   filteredData = data;
+  //   for (let i = 0; i < mySubject.result.length; i++) {
+  //     // console.log(mySubject.result[i]);
+  //     filteredData = filteredData.filter(
+  //       (item) => 
+  //       // item.department !== mySubject.result[i].department &&
+  //       // item.grade !== mySubject.result[i].grade &&
+  //       //item.subjectName !== mySubject.result[i].subjectName &&
+  //       // item.professorName !== mySubject.result[i].professorName &&
+  //       // item.subjectType !== mySubject.result[i].subjectType &&
+  //       // item.subjectPoint !== mySubject.result[i].subjectPoint &&
+  //       //item.date !== mySubject.result[i].date &&
+  //       // item.subjectCode !== mySubject.result[i].subjectCode &&
+  //       //item.classroom !== mySubject.result[i].classroom
+  //       // item.division !== mySubject.result[i].division
+  //     );
+  //   }
+  // }
+  console.log(data);
+  console.log(filteredData);
+  const refreshFunction = (subject) => {
+    setSubject(
+      Subject.filter(
+        (item) =>
+          item.subjectName !== subject.subjectName && item.date !== subject.date
+      )
+    );
+  };
+
+  const onApplyClick = (data) => {
+    const {
+      key,
+      department,
+      grade,
+      subjectName,
+      professorName,
+      subjectType,
+      subjectPoint,
+      date,
+      subjectCode,
+      classroom,
+      division,
+      // rate,
+      // limitApply,
+    } = data;
+    console.log(data);
+    let variable = {
+      key,
+      user: localStorage.getItem("userId"),
+      department,
+      grade,
+      subjectName,
+      professorName,
+      subjectType,
+      subjectPoint,
+      date,
+      subjectCode,
+      classroom,
+      division,
+      // rate,
+      // limitApply,
+    };
+
+    dispatch(applySubject(variable)).then((response) => {
+      if (response.payload.success) {
+        message.success("신청 성공");
+        refreshFunction(response.payload.result);
+      } else {
+        message.error("신청 실패");
+      }
+    });
+  };
 
   const columns = [
     {
@@ -146,7 +238,7 @@ function ApplyTablePage() {
         <Button
           style={{ padding: "0 5px" }}
           type="primary"
-          onClick={(e) => onApplyClick(e, record)}
+          onClick={() => onApplyClick(record)}
         >
           장바구니 담기
         </Button>
@@ -154,71 +246,27 @@ function ApplyTablePage() {
     },
   ];
 
-  const onApplyClick = (e, data) => {
-    e.currentTarget.disabled = true;
-    const {
-      department,
-      grade,
-      subjectName,
-      professorName,
-      subjectType,
-      subjectPoint,
-      date,
-      subjectCode,
-      classroom,
-      division,
-      // rate,
-      // limitApply,
-    } = data;
-
-    let variable = {
-      user: localStorage.getItem("userId"),
-      department,
-      grade,
-      subjectName,
-      professorName,
-      subjectType,
-      subjectPoint,
-      date,
-      subjectCode,
-      classroom,
-      division,
-      // rate,
-      // limitApply,
-    };
-
-    dispatch(applySubject(variable)).then((response) => {
-      if (response.payload.success) {
-        message.success("신청 성공");
-      } else {
-        message.error("신청 실패");
-      }
-    });
-  };
-
   return (
-    <div css={container}>
-      <div css={tableHeader}>
-        <p css={tableHeaderTitle}>수강신청</p>
-        <div css={tableHeaderRightMenu}>
-          <span>
-            총 신청가능 학점 &nbsp;<b>21</b>&nbsp;학점
-          </span>
-          <Icon type="pause" style={{ paddingTop: "4px" }} />
-          <span>
-            {/* 신청과목 수&nbsp; <b>{MySubject.length}</b>&nbsp; 과목{" "} */}
-          </span>
-          <Icon type="pause" style={{ paddingTop: "4px" }} />
-          <span>{/* 신청 학점 &nbsp; <b>{totalPoint}</b>&nbsp; 학점 */}</span>
+    <React.Fragment>
+      <div css={container}>
+        <div css={tableHeader}>
+          <p css={tableHeaderTitle}>수강신청</p>
+          <div css={tableHeaderRightMenu}>
+            <span>
+              총 조회 건수 &nbsp;<b>{Subject.length}</b>&nbsp;건
+            </span>
+          </div>
         </div>
+
+        <Table
+          columns={columns}
+          dataSource={data}
+          sticky
+          scroll={{ x: 1000, y: 500 }}
+        />
       </div>
-      <Table
-        columns={columns}
-        dataSource={data}
-        sticky
-        scroll={{ x: 1000, y: 300 }}
-      />
-    </div>
+      {/* <MySubjectPage /> */}
+    </React.Fragment>
   );
 }
 
