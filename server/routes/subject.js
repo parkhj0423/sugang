@@ -24,7 +24,6 @@ router.post("/getMySubject", (req, res) => {
 
   mySubject
     .find(variable)
-
     .populate("user")
     .exec((err, result) => {
       if (err) {
@@ -37,7 +36,6 @@ router.post("/getMySubject", (req, res) => {
 router.post("/getSubject", (req, res) => {
   nSubject
     .find()
-
     .populate("user")
     .exec((err, result) => {
       if (err) {

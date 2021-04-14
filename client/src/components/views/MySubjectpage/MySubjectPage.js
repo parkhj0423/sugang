@@ -16,15 +16,18 @@ import {
 } from "../../../_actions/subject_actions";
 
 function MySubjectPage(props) {
-  // const userId = props.match.params.userId;
-  const userId = localStorage.getItem("userId");
+  const userId = props.match.params.userId;
+  // const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
   let totalPoint = 0;
 
   const [MySubject, setMySubject] = useState([]);
 
   useEffect(() => {
-    dispatch(getMySubject(userId)).then((response) => {
+    let variable ={
+      user : userId
+    }
+    dispatch(getMySubject(variable)).then((response) => {
       if (response.payload.result) {
         message.success("내 강의 불러오기 성공");
         setMySubject(response.payload.result);
@@ -88,7 +91,7 @@ function MySubjectPage(props) {
   const columns = [
     {
       title: <b>학과</b>,
-      width: 170,
+      width: 185,
       dataIndex: "department",
       key: "department",
       fixed: "left",

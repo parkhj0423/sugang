@@ -16,7 +16,8 @@ import {
   getMySubject,
   getSubject,
 } from "../../../_actions/subject_actions";
-import MySubjectPage from "../MySubjectpage/MySubjectPage";
+
+import SearchTable from "./SearchTable";
 
 function ApplyTablePage() {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ function ApplyTablePage() {
   const userId = localStorage.getItem("userId");
   let data = [];
   let filteredData = [];
+  let searchedData = [];
+  let totalPoint = 0;
   const mySubject = useSelector((state) => state.subject.mySubject);
 
   useEffect(() => {
@@ -37,14 +40,18 @@ function ApplyTablePage() {
       }
     });
 
-    dispatch(getMySubject(userId)).then((response) => {
+    let variable = {
+      user: userId,
+    };
+
+    dispatch(getMySubject(variable)).then((response) => {
       if (response.payload.result) {
         message.success("내 강의 불러오기 성공");
       } else {
         message.error("불러오기 실패");
       }
     });
-  }, []);
+  }, [dispatch]);
 
   for (let i = 0; i < Subject.length; i++) {
     data.push({
@@ -66,25 +73,26 @@ function ApplyTablePage() {
     });
   }
 
-  // if (mySubject !== undefined && data.length !== 0) {
-  //   filteredData = data;
-  //   for (let i = 0; i < mySubject.result.length; i++) {
-  //     // console.log(mySubject.result[i]);
-  //     filteredData = filteredData.filter(
-  //       (item) => 
-  //       // item.department !== mySubject.result[i].department &&
-  //       // item.grade !== mySubject.result[i].grade &&
-  //       //item.subjectName !== mySubject.result[i].subjectName &&
-  //       // item.professorName !== mySubject.result[i].professorName &&
-  //       // item.subjectType !== mySubject.result[i].subjectType &&
-  //       // item.subjectPoint !== mySubject.result[i].subjectPoint &&
-  //       //item.date !== mySubject.result[i].date &&
-  //       // item.subjectCode !== mySubject.result[i].subjectCode &&
-  //       //item.classroom !== mySubject.result[i].classroom
-  //       // item.division !== mySubject.result[i].division
-  //     );
-  //   }
-  // }
+  if (mySubject !== undefined && data.length !== 0) {
+    filteredData = data;
+    for (let i = 0; i < mySubject.result.length; i++) {
+      totalPoint += mySubject.result[i].subjectPoint;
+      console.log(totalPoint);
+      filteredData = filteredData.filter(
+        (item) =>
+          // item.department !== mySubject.result[i].department &&
+          // item.grade !== mySubject.result[i].grade &&
+          item.subjectName !== mySubject.result[i].subjectName &&
+          // item.professorName !== mySubject.result[i].professorName &&
+          // item.subjectType !== mySubject.result[i].subjectType &&
+          // item.subjectPoint !== mySubject.result[i].subjectPoint &&
+          item.date !== mySubject.result[i].date &&
+          // item.subjectCode !== mySubject.result[i].subjectCode &&
+          //item.classroom !== mySubject.result[i].classroom
+          item.division !== mySubject.result[i].division
+      );
+    }
+  }
   console.log(data);
   console.log(filteredData);
   const refreshFunction = (subject) => {
@@ -129,7 +137,12 @@ function ApplyTablePage() {
       // rate,
       // limitApply,
     };
-
+    totalPoint += subjectPoint;
+    if (totalPoint > 21) {
+      console.log(totalPoint);
+      message.error("21학점 이상 신청할 수 없습니다.");
+      return;
+    }
     dispatch(applySubject(variable)).then((response) => {
       if (response.payload.success) {
         message.success("신청 성공");
@@ -140,10 +153,46 @@ function ApplyTablePage() {
     });
   };
 
+  const onSearch = (
+    department,
+    grade,
+    subjectName,
+    professorName,
+    subjectType,
+    subjectPoint,
+    date,
+    subjectCode
+  ) => {
+    console.log(
+      department,
+      grade,
+      subjectName,
+      professorName,
+      subjectType,
+      subjectPoint,
+      date,
+      subjectCode
+    );
+
+    searchedData = filteredData.filter(
+      (item) =>
+        item.department === department ||
+        item.grade === grade ||
+        item.subjectName === subjectName ||
+        item.professorName === professorName ||
+        item.subjectType === subjectType ||
+        item.subjectPoint === subjectPoint ||
+        item.date === date ||
+        item.subjectCode === subjectCode
+    );
+    console.log(searchedData);
+    //searchData 분기하는 법 다시 생각해봐야할듯 하위 컴포넌트에서 값은 받아올 수 있지만 분기해결을 못함
+  };
+
   const columns = [
     {
       title: <b>학과</b>,
-      width: 170,
+      width: 185,
       dataIndex: "department",
       key: "department",
       fixed: "left",
@@ -250,22 +299,21 @@ function ApplyTablePage() {
     <React.Fragment>
       <div css={container}>
         <div css={tableHeader}>
-          <p css={tableHeaderTitle}>수강신청</p>
+          <p css={tableHeaderTitle}>개설강좌목록</p>
           <div css={tableHeaderRightMenu}>
             <span>
-              총 조회 건수 &nbsp;<b>{Subject.length}</b>&nbsp;건
+              총 조회 건수 &nbsp;<b>{filteredData.length}</b>&nbsp;건
             </span>
           </div>
         </div>
-
+        <SearchTable onSearch={onSearch} />
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={filteredData}
           sticky
           scroll={{ x: 1000, y: 500 }}
         />
       </div>
-      {/* <MySubjectPage /> */}
     </React.Fragment>
   );
 }
