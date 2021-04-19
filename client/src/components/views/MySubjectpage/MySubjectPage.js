@@ -14,6 +14,7 @@ import {
   deleteMySubject,
   getMySubject,
 } from "../../../_actions/subject_actions";
+import CountApply from "../Table/CountApply";
 
 function MySubjectPage(props) {
   const userId = props.match.params.userId;
@@ -22,7 +23,7 @@ function MySubjectPage(props) {
   let totalPoint = 0;
 
   const [MySubject, setMySubject] = useState([]);
-
+  const [AppliedSubject, setAppliedSubject] = useState([]);
   useEffect(() => {
     let variable = {
       user: userId,
@@ -32,6 +33,14 @@ function MySubjectPage(props) {
         message.success("내 강의 불러오기 성공");
         setMySubject(response.payload.result);
         console.log(response.payload.result);
+      } else {
+        message.error("불러오기 실패");
+      }
+    });
+    dispatch(getMySubject()).then((response) => {
+      if (response.payload.result) {
+        setAppliedSubject(response.payload.result);
+        console.log("AppliedSubject", response.payload.result);
       } else {
         message.error("불러오기 실패");
       }
@@ -58,28 +67,25 @@ function MySubjectPage(props) {
       classroom: MySubject[i].classroom,
       division: MySubject[i].division,
       //rate: MySubject[i].rate,
-      // countApply: countApply,
+      countApply: (
+        <CountApply
+          AppliedSubject={AppliedSubject[i]}
+          subject={AppliedSubject}
+        />
+      ),
       limitApply: 30,
       // competitionRate: MySubject[i].competitionRate,
     });
   }
 
-  const countApply = () => {
-    let applyCount = [];
-    for (let i = 0; i < MySubject.length; i++) {
-      for (let j = 1; j < MySubject.length; j++) {
-        if (MySubject[i].subjectId === MySubject[j].subjectId) {
-          applyCount.push(MySubject[i]);
-        }
-      }
-    }
-    return applyCount.length;
-  };
-
   // 강의 신청이나 취소 후 강의 목록을 새로고침하는 함수
   const refreshFunction = (subject) => {
     setMySubject(
-      MySubject.filter((item) => item.subjectId !== subject.subjectId)
+      MySubject.filter(
+        (item) =>
+          item.subjectId !== subject.subjectId &&
+          item.user === localStorage.getItem("userId")
+      )
     );
   };
 
@@ -88,6 +94,7 @@ function MySubjectPage(props) {
     const { subjectId } = data;
 
     let variable = {
+      user: userId,
       subjectId,
     };
 

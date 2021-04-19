@@ -47,7 +47,7 @@ router.post("/getSubject", (req, res) => {
 
 router.post("/deleteMySubject", (req, res) => {
   mySubject
-    .findOneAndDelete({ subjectId: req.body.subjectId })
+    .findOneAndDelete({ subjectId: req.body.subjectId, user: req.body.user })
     .exec((err, result) => {
       if (err) {
         return res.status(400).send(err);
