@@ -56,6 +56,7 @@ function ApplyTablePage() {
   for (let i = 0; i < Subject.length; i++) {
     data.push({
       key: i,
+      subjectId: Subject[i].subjectId,
       department: Subject[i].department,
       grade: Subject[i].grade,
       subjectName: Subject[i].subjectName,
@@ -68,7 +69,7 @@ function ApplyTablePage() {
       division: Subject[i].division,
       // rate: Subject[i].rate,
       // countApply: Subject[i].countApply,
-      // limitApply: Subject[i].limitApply,
+      limitApply: 30,
       // competitionRate: Subject[i].competitionRate,
     });
   }
@@ -79,17 +80,7 @@ function ApplyTablePage() {
       totalPoint += mySubject.result[i].subjectPoint;
       console.log(totalPoint);
       filteredData = filteredData.filter(
-        (item) =>
-          // item.department !== mySubject.result[i].department &&
-          // item.grade !== mySubject.result[i].grade &&
-          item.subjectName !== mySubject.result[i].subjectName &&
-          // item.professorName !== mySubject.result[i].professorName &&
-          // item.subjectType !== mySubject.result[i].subjectType &&
-          // item.subjectPoint !== mySubject.result[i].subjectPoint &&
-          item.date !== mySubject.result[i].date &&
-          // item.subjectCode !== mySubject.result[i].subjectCode &&
-          //item.classroom !== mySubject.result[i].classroom
-          item.division !== mySubject.result[i].division
+        (item) => item.subjectId !== mySubject.result[i].subjectId
       );
     }
   }
@@ -99,14 +90,14 @@ function ApplyTablePage() {
     setSubject(
       Subject.filter(
         (item) =>
-          item.subjectName !== subject.subjectName && item.date !== subject.date
+        item.subjectId !== subject.subjectId
       )
     );
   };
 
   const onApplyClick = (data) => {
     const {
-      key,
+      subjectId,
       department,
       grade,
       subjectName,
@@ -122,7 +113,7 @@ function ApplyTablePage() {
     } = data;
     console.log(data);
     let variable = {
-      key,
+      subjectId,
       user: localStorage.getItem("userId"),
       department,
       grade,

@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function NoticePage() {
-    return (
-        <div>
-            notice
-        </div>
-    )
+  return <div></div>;
 }
 
-export default NoticePage
+export default NoticePage;

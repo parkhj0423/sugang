@@ -3,16 +3,13 @@ const Schema = mongoose.Schema;
 
 const mySubjectSchema = mongoose.Schema(
   {
-    // key: {
-    //   type: number,
-    // },
+    subjectId: {
+      type: Number,
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    // subjectId: {
-    //   type: String,
-    // },
     department: {
       type: String,
     },
@@ -49,9 +46,9 @@ const mySubjectSchema = mongoose.Schema(
     // countApply: {
     //   type: String,
     // },
-    limitApply: {
-      type: String,
-    },
+    // limitApply: {
+    //   type: String,
+    // },
     // competitionRate: {
     //   type: String,
     // },

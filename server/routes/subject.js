@@ -47,7 +47,7 @@ router.post("/getSubject", (req, res) => {
 
 router.post("/deleteMySubject", (req, res) => {
   mySubject
-    .findOneAndDelete({ subjectName: req.body.subjectName })
+    .findOneAndDelete({ subjectId: req.body.subjectId })
     .exec((err, result) => {
       if (err) {
         return res.status(400).send(err);
@@ -55,5 +55,6 @@ router.post("/deleteMySubject", (req, res) => {
       return res.status(200).json({ success: true, result });
     });
 });
+
 
 module.exports = router;

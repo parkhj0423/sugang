@@ -24,13 +24,14 @@ function MySubjectPage(props) {
   const [MySubject, setMySubject] = useState([]);
 
   useEffect(() => {
-    let variable ={
-      user : userId
-    }
+    let variable = {
+      user: userId,
+    };
     dispatch(getMySubject(variable)).then((response) => {
       if (response.payload.result) {
         message.success("내 강의 불러오기 성공");
         setMySubject(response.payload.result);
+        console.log(response.payload.result);
       } else {
         message.error("불러오기 실패");
       }
@@ -45,6 +46,7 @@ function MySubjectPage(props) {
   for (let i = 0; i < MySubject.length; i++) {
     data.push({
       key: i,
+      subjectId: MySubject[i].subjectId,
       department: MySubject[i].department,
       grade: MySubject[i].grade,
       subjectName: MySubject[i].subjectName,
@@ -55,27 +57,38 @@ function MySubjectPage(props) {
       subjectCode: MySubject[i].subjectCode,
       classroom: MySubject[i].classroom,
       division: MySubject[i].division,
-      // rate: MySubject[i].rate,
-      // countApply: MySubject[i].countApply,
-      // limitApply: MySubject[i].limitApply,
+      //rate: MySubject[i].rate,
+      // countApply: countApply,
+      limitApply: 30,
       // competitionRate: MySubject[i].competitionRate,
     });
   }
 
+  const countApply = () => {
+    let applyCount = [];
+    for (let i = 0; i < MySubject.length; i++) {
+      for (let j = 1; j < MySubject.length; j++) {
+        if (MySubject[i].subjectId === MySubject[j].subjectId) {
+          applyCount.push(MySubject[i]);
+        }
+      }
+    }
+    return applyCount.length;
+  };
+
+  // 강의 신청이나 취소 후 강의 목록을 새로고침하는 함수
   const refreshFunction = (subject) => {
     setMySubject(
-      MySubject.filter(
-        (item) =>
-          item.subjectName !== subject.subjectName && item.date !== subject.date
-      )
+      MySubject.filter((item) => item.subjectId !== subject.subjectId)
     );
   };
 
+  // 강의 취소를 위한 onClick 함수
   const onCancelClick = (data) => {
-    const { subjectName } = data;
+    const { subjectId } = data;
 
     let variable = {
-      subjectName,
+      subjectId,
     };
 
     dispatch(deleteMySubject(variable)).then((response) => {
