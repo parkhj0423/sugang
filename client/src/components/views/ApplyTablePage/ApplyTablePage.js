@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Button, Table, message } from "antd";
 
@@ -10,7 +10,7 @@ import {
   tableHeaderRightMenu,
   tableHeaderTitle,
 } from "../Table/TableStyle";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   applySubject,
   getMySubject,
@@ -18,17 +18,22 @@ import {
 } from "../../../_actions/subject_actions";
 
 import SearchTable from "./SearchTable";
+import CountApply from "../Table/CountApply";
 
 function ApplyTablePage() {
+  const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
   const [Subject, setSubject] = useState([]);
+  const [MySubject, setMySubject] = useState([]);
 
-  const userId = localStorage.getItem("userId");
+  let appliedSubject = MySubject.filter(
+    (subject) => subject.user._id === userId
+  );
+
+  const totalPoint = 0;
   let data = [];
   let filteredData = [];
   let searchedData = [];
-  let totalPoint = 0;
-  const mySubject = useSelector((state) => state.subject.mySubject);
 
   useEffect(() => {
     dispatch(getSubject()).then((response) => {
@@ -40,18 +45,18 @@ function ApplyTablePage() {
       }
     });
 
-    let variable = {
-      user: userId,
-    };
-
-    dispatch(getMySubject(variable)).then((response) => {
+    dispatch(getMySubject()).then((response) => {
       if (response.payload.result) {
-        message.success("내 강의 불러오기 성공");
+        setMySubject(response.payload.result);
       } else {
         message.error("불러오기 실패");
       }
     });
   }, [dispatch]);
+
+  for (let i = 0; i < appliedSubject.length; i++) {
+    totalPoint += appliedSubject[i].subjectPoint;
+  }
 
   for (let i = 0; i < Subject.length; i++) {
     data.push({
@@ -68,31 +73,33 @@ function ApplyTablePage() {
       classroom: Subject[i].classroom,
       division: Subject[i].division,
       // rate: Subject[i].rate,
-      // countApply: Subject[i].countApply,
+      countApply: (
+        <CountApply AppliedSubject={Subject[i]} subject={MySubject} />
+      ),
       limitApply: 30,
-      // competitionRate: Subject[i].competitionRate,
+      competitionRate: (
+        <CountApply
+          AppliedSubject={Subject[i]}
+          subject={MySubject}
+          competitionRate="true"
+        />
+      ),
     });
   }
 
-  if (mySubject !== undefined && data.length !== 0) {
+  if (MySubject !== undefined && data.length !== 0) {
     filteredData = data;
-    for (let i = 0; i < mySubject.result.length; i++) {
-      totalPoint += mySubject.result[i].subjectPoint;
-      console.log(totalPoint);
+    for (let i = 0; i < appliedSubject.length; i++) {
       filteredData = filteredData.filter(
-        (item) => item.subjectId !== mySubject.result[i].subjectId
+        (item) => item.subjectId !== appliedSubject[i].subjectId
       );
     }
   }
   console.log(data);
   console.log(filteredData);
+
   const refreshFunction = (subject) => {
-    setSubject(
-      Subject.filter(
-        (item) =>
-        item.subjectId !== subject.subjectId
-      )
-    );
+    setSubject(Subject.filter((item) => item.subjectId !== subject.subjectId));
   };
 
   const onApplyClick = (data) => {
@@ -109,7 +116,6 @@ function ApplyTablePage() {
       classroom,
       division,
       // rate,
-      // limitApply,
     } = data;
     console.log(data);
     let variable = {
@@ -126,9 +132,10 @@ function ApplyTablePage() {
       classroom,
       division,
       // rate,
-      // limitApply,
     };
     totalPoint += subjectPoint;
+
+    console.log(totalPoint);
     if (totalPoint > 21) {
       console.log(totalPoint);
       message.error("21학점 이상 신청할 수 없습니다.");
@@ -267,20 +274,20 @@ function ApplyTablePage() {
       title: <b>경쟁률</b>,
       dataIndex: "competitionRate",
       key: "competitionRate",
-      width: 75,
+      width: 100,
     },
     {
-      title: <b>장바구니 담기</b>,
+      title: <b>신청</b>,
       key: "operation",
       fixed: "right",
-      width: 150,
+      width: 60,
       render: (record) => (
         <Button
           style={{ padding: "0 5px" }}
           type="primary"
           onClick={() => onApplyClick(record)}
         >
-          장바구니 담기
+          신청
         </Button>
       ),
     },

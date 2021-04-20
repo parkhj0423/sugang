@@ -1,7 +1,7 @@
 import React from "react";
 
 function NoticePage() {
-  return <div></div>;
+  return <div>notice</div>;
 }
 
 export default NoticePage;

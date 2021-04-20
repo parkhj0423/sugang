@@ -24,6 +24,7 @@ function MySubjectPage(props) {
 
   const [MySubject, setMySubject] = useState([]);
   const [AppliedSubject, setAppliedSubject] = useState([]);
+
   useEffect(() => {
     let variable = {
       user: userId,
@@ -32,7 +33,7 @@ function MySubjectPage(props) {
       if (response.payload.result) {
         message.success("내 강의 불러오기 성공");
         setMySubject(response.payload.result);
-        console.log(response.payload.result);
+        //console.log(response.payload.result);
       } else {
         message.error("불러오기 실패");
       }
@@ -40,7 +41,7 @@ function MySubjectPage(props) {
     dispatch(getMySubject()).then((response) => {
       if (response.payload.result) {
         setAppliedSubject(response.payload.result);
-        console.log("AppliedSubject", response.payload.result);
+        //console.log("AppliedSubject", response.payload.result);
       } else {
         message.error("불러오기 실패");
       }
@@ -68,13 +69,16 @@ function MySubjectPage(props) {
       division: MySubject[i].division,
       //rate: MySubject[i].rate,
       countApply: (
-        <CountApply
-          AppliedSubject={AppliedSubject[i]}
-          subject={AppliedSubject}
-        />
+        <CountApply AppliedSubject={MySubject[i]} subject={AppliedSubject} />
       ),
       limitApply: 30,
-      // competitionRate: MySubject[i].competitionRate,
+      competitionRate: (
+        <CountApply
+          AppliedSubject={MySubject[i]}
+          subject={AppliedSubject}
+          competitionRate="true"
+        />
+      ),
     });
   }
 
@@ -83,8 +87,7 @@ function MySubjectPage(props) {
     setMySubject(
       MySubject.filter(
         (item) =>
-          item.subjectId !== subject.subjectId &&
-          item.user === localStorage.getItem("userId")
+          item.subjectId !== subject.subjectId && item.user._id === userId
       )
     );
   };
@@ -195,7 +198,7 @@ function MySubjectPage(props) {
       title: <b>경쟁률</b>,
       dataIndex: "competitionRate",
       key: "competitionRate",
-      width: 75,
+      width: 100,
     },
     {
       title: <b>취소</b>,
@@ -227,7 +230,7 @@ function MySubjectPage(props) {
           </span>
           <Icon type="pause" style={{ paddingTop: "4px" }} />
           <span>
-            신청과목 수&nbsp; <b>{MySubject.length}</b>&nbsp; 과목{" "}
+            신청과목 수&nbsp; <b>{MySubject.length}</b>&nbsp; 과목
           </span>
           <Icon type="pause" style={{ paddingTop: "4px" }} />
           <span>
