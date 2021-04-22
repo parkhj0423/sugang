@@ -14,6 +14,8 @@ function SearchTable(props) {
   const [subjectPoint, setSubjectPoint] = useState("");
   const [date, setDate] = useState("");
 
+  let searchedProps = [];
+
   const onProfessorNameChange = (event) => {
     setProfessorName(event.currentTarget.value);
   };
@@ -27,28 +29,64 @@ function SearchTable(props) {
   };
 
   const onDepartmentChange = (value) => {
-    console.log(value);
     setDepartment(value);
   };
 
   const onGradeChange = (value) => {
-    console.log(value);
     setGrade(value);
   };
 
   const onSubjectTypeChange = (value) => {
-    console.log(value);
     setSubjectType(value);
   };
 
   const onSubjectPointChange = (value) => {
-    console.log(value);
     setSubjectPoint(value);
   };
 
   const onDateChange = (value) => {
-    console.log(value);
     setDate(value);
+  };
+
+  const checkArr = (value, arr) => {
+    let check = true;
+    //check 값이 true여야 searchedProps 에 값을 삽입
+    for (let i = 0; i < arr.length; i++) {
+      if (value === arr[i]) {
+        check = false;
+      }
+    }
+
+    return check;
+  };
+
+  const onClick = () => {
+    if (department !== "" && checkArr(department, searchedProps)) {
+      searchedProps.push({ department });
+    }
+    if (grade !== "" && checkArr(grade, searchedProps)) {
+      searchedProps.push({ grade });
+    }
+    if (subjectName !== "" && checkArr(subjectName, searchedProps)) {
+      searchedProps.push({ subjectName });
+    }
+    if (subjectCode !== "" && checkArr(subjectCode, searchedProps)) {
+      searchedProps.push({ subjectCode });
+    }
+    if (subjectPoint !== "" && checkArr(subjectPoint, searchedProps)) {
+      searchedProps.push({ subjectPoint });
+    }
+    if (subjectType !== "" && checkArr(subjectType, searchedProps)) {
+      searchedProps.push({ subjectType });
+    }
+    if (professorName !== "" && checkArr(professorName, searchedProps)) {
+      searchedProps.push({ professorName });
+    }
+    if (date !== "" && checkArr(date, searchedProps)) {
+      searchedProps.push({ date });
+    }
+
+    return props.onSearch(searchedProps);
   };
 
   return (
@@ -175,22 +213,7 @@ function SearchTable(props) {
           </tr>
         </tbody>
       </table>
-      <Button
-        type="primary"
-        style={{ margin: "2.2rem" }}
-        onClick={() =>
-          props.onSearch(
-            department,
-            grade,
-            subjectName,
-            professorName,
-            subjectType,
-            subjectPoint,
-            date,
-            subjectCode
-          )
-        }
-      >
+      <Button type="primary" style={{ margin: "2.2rem" }} onClick={onClick}>
         <Icon type="search" />
         검색
       </Button>

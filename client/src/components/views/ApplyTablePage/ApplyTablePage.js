@@ -30,7 +30,7 @@ function ApplyTablePage() {
     (subject) => subject.user._id === userId
   );
 
-  const totalPoint = 0;
+  let totalPoint = 0;
   let data = [];
   let filteredData = [];
   let searchedData = [];
@@ -151,30 +151,12 @@ function ApplyTablePage() {
     });
   };
 
-  const onSearch = (
-    department,
-    grade,
-    subjectName,
-    professorName,
-    subjectType,
-    subjectPoint,
-    date,
-    subjectCode
-  ) => {
-    console.log(
-      department,
-      grade,
-      subjectName,
-      professorName,
-      subjectType,
-      subjectPoint,
-      date,
-      subjectCode
-    );
+  const onSearch = (searchedProps) => {
+    console.log(searchedProps);
 
     searchedData = filteredData.filter(
       (item) =>
-        item.department === department ||
+        item.department === searchedProps.department &&
         item.grade === grade ||
         item.subjectName === subjectName ||
         item.professorName === professorName ||
