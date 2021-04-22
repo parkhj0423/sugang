@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button, Table, message } from "antd";
 
@@ -25,6 +25,8 @@ function ApplyTablePage() {
   const dispatch = useDispatch();
   const [Subject, setSubject] = useState([]);
   const [MySubject, setMySubject] = useState([]);
+  const [IsSearch, setIsSearch] = useState(false);
+  const [SearchComplete, setSearchComplete] = useState([]);
 
   let appliedSubject = MySubject.filter(
     (subject) => subject.user._id === userId
@@ -135,9 +137,7 @@ function ApplyTablePage() {
     };
     totalPoint += subjectPoint;
 
-    console.log(totalPoint);
     if (totalPoint > 21) {
-      console.log(totalPoint);
       message.error("21학점 이상 신청할 수 없습니다.");
       return;
     }
@@ -153,20 +153,22 @@ function ApplyTablePage() {
 
   const onSearch = (searchedProps) => {
     console.log(searchedProps);
+    searchedData = filteredData;
+    for (let key in searchedProps) {
+      // console.log(`${key} : ${searchedProps[key]}`);
 
-    searchedData = filteredData.filter(
-      (item) =>
-        item.department === searchedProps.department &&
-        item.grade === grade ||
-        item.subjectName === subjectName ||
-        item.professorName === professorName ||
-        item.subjectType === subjectType ||
-        item.subjectPoint === subjectPoint ||
-        item.date === date ||
-        item.subjectCode === subjectCode
-    );
-    console.log(searchedData);
-    //searchData 분기하는 법 다시 생각해봐야할듯 하위 컴포넌트에서 값은 받아올 수 있지만 분기해결을 못함
+      if (key === "date") {
+        searchedData = searchedData.filter(
+          (item) => item[key].split("")[0] === searchedProps[key]
+        );
+      } else {
+        searchedData = searchedData.filter(
+          (item) => item[key] === searchedProps[key]
+        );
+      }
+    }
+    setIsSearch(true);
+    setSearchComplete(searchedData);
   };
 
   const columns = [
@@ -214,7 +216,7 @@ function ApplyTablePage() {
       title: <b>요일</b>,
       dataIndex: "date",
       key: "date",
-      width: 70,
+      width: 80,
     },
     {
       title: <b>과목 코드</b>,
@@ -289,7 +291,7 @@ function ApplyTablePage() {
         <SearchTable onSearch={onSearch} />
         <Table
           columns={columns}
-          dataSource={filteredData}
+          dataSource={IsSearch ? SearchComplete : filteredData}
           sticky
           scroll={{ x: 1000, y: 500 }}
         />

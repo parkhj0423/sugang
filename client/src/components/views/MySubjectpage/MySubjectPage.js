@@ -156,7 +156,7 @@ function MySubjectPage(props) {
       title: <b>요일</b>,
       dataIndex: "date",
       key: "date",
-      width: 70,
+      width: 80,
     },
     {
       title: <b>과목 코드</b>,

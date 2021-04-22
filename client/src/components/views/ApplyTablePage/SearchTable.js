@@ -14,7 +14,7 @@ function SearchTable(props) {
   const [subjectPoint, setSubjectPoint] = useState("");
   const [date, setDate] = useState("");
 
-  let searchedProps = [];
+  let searchedProps = {};
 
   const onProfessorNameChange = (event) => {
     setProfessorName(event.currentTarget.value);
@@ -62,28 +62,28 @@ function SearchTable(props) {
 
   const onClick = () => {
     if (department !== "" && checkArr(department, searchedProps)) {
-      searchedProps.push({ department });
+      searchedProps.department = department;
     }
     if (grade !== "" && checkArr(grade, searchedProps)) {
-      searchedProps.push({ grade });
+      searchedProps.grade = grade;
     }
     if (subjectName !== "" && checkArr(subjectName, searchedProps)) {
-      searchedProps.push({ subjectName });
+      searchedProps.subjectName = subjectName;
     }
     if (subjectCode !== "" && checkArr(subjectCode, searchedProps)) {
-      searchedProps.push({ subjectCode });
+      searchedProps.subjectCode = subjectCode;
     }
     if (subjectPoint !== "" && checkArr(subjectPoint, searchedProps)) {
-      searchedProps.push({ subjectPoint });
+      searchedProps.subjectPoint = parseInt(subjectPoint);
     }
     if (subjectType !== "" && checkArr(subjectType, searchedProps)) {
-      searchedProps.push({ subjectType });
+      searchedProps.subjectType = subjectType;
     }
     if (professorName !== "" && checkArr(professorName, searchedProps)) {
-      searchedProps.push({ professorName });
+      searchedProps.professorName = professorName;
     }
     if (date !== "" && checkArr(date, searchedProps)) {
-      searchedProps.push({ date });
+      searchedProps.date = date;
     }
 
     return props.onSearch(searchedProps);
