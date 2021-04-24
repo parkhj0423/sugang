@@ -1,61 +1,111 @@
-.wrapper {
-  display: grid;
-  grid-template-rows: 70px 1fr 70px;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "sidebar"
-    "content";
-  width: 99%; /* unnecessary, but let's keep things consistent */
-  height: 100%;
+.events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-
-/* MAIN */
-
-.calendar {
+.events .ant-badge-status {
+  width: 100%;
+  overflow: hidden;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
-
-.calendar__week,
-.calendar__header {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-}
-.calendar__week {
-  grid-auto-rows: 100px;
-  text-align: right;
-}
-
-.calendar__header {
-  grid-auto-rows: 50px;
-  align-items: center;
+.notes-month {
+  font-size: 28px;
   text-align: center;
 }
-
-.calendar__day {
-  padding: 16px;
+.notes-month section {
+  font-size: 28px;
 }
 
-body {
-  font-family: Montserrat;
-  font-weight: 100;
-  color: #a8b2b9;
+.ant-fullcalendar-calendar-body {
+    margin-top: 50px;
 }
 
-.calendar {
-  background-color: white;
-  border: 1px solid #e1e1e1;
+.ant-fullcalendar-header {
+  display: none;
 }
 
-.calendar__header > div {
-  text-transform: uppercase;
-  font-size: 0.8em;
-  font-weight: bold;
+.ant-radio-button-wrapper {
+  display: none;
 }
 
-.calendar__day {
-  border-right: 1px solid #e1e1e1;
-  border-top: 1px solid #e1e1e1;
+.ant-fullcalendar-value {
+  display: none;
 }
 
-.calendar__day:last-child {
-  border-right: 0;
-}
+
+
+
+
+
+
+/* 
+.wrapper {
+    display: grid;
+    grid-template-rows: 70px 1fr 70px;
+    grid-template-columns: 1fr;
+    width: 99%; 
+  }
+  
+ 
+  
+  .calendar {
+  }
+  
+  .calendar__week,
+  .calendar__header {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  
+  }
+  
+  
+  
+  .calendar__week {
+    grid-auto-rows: 150px;
+    text-align: right;
+  }
+  
+  .calendar__header {
+    grid-auto-rows: 50px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .calendar__day {
+    padding: 16px;
+  }
+  
+  .calendar__day:first-child {
+    text-align: center;
+    margin-left: 50%;
+    width: 50%;
+    border-left: 1px solid #e1e1e1;
+  }
+  
+  body {
+    font-family: Montserrat;
+    font-weight: 100;
+    color: #a8b2b9;
+  }
+  
+  .calendar {
+    background-color: white;
+    border: 1px solid #e1e1e1;
+  }
+  
+  .calendar__header > div {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+  
+  .calendar__day {
+    border-right: 1px solid #e1e1e1;
+    border-top: 1px solid #e1e1e1;
+  }
+  
+  .calendar__day:last-child {
+    border-right: 0;
+  } */
