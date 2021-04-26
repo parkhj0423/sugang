@@ -7,7 +7,7 @@ import { Button, Table, message } from "antd";
 import {
   container,
   tableHeader,
-  tableHeaderRightMenu,
+  tableHeaderMenu,
   tableHeaderTitle,
 } from "../Table/TableStyle";
 import { useDispatch } from "react-redux";
@@ -105,17 +105,19 @@ function ApplyTablePage() {
   };
 
   const dateCheck = (data) => {
-    let dataArr = data.split("");
-    dataArr.shift();
-    let dataTime = dataArr.join("");
+    // let dataArr = data.split("");
+    // dataArr.shift();
+    // let dataTime = dataArr.join("");
+
     for (let i = 0; i < appliedSubject.length; i++) {
-      let arr = appliedSubject[i].date.split("");
-      arr.shift();
-      let myTime = arr.join("");
-      if (dataTime === myTime) {
+      // let arr = appliedSubject[i].date.split("");
+      // arr.shift();
+      // let myTime = arr.join("");
+      if (data === appliedSubject[i].date) {
         return false;
       }
     }
+    return true;
   };
 
   const onApplyClick = (data) => {
@@ -151,7 +153,7 @@ function ApplyTablePage() {
     };
 
     totalPoint += subjectPoint;
-    console.log(totalPoint)
+    console.log(totalPoint);
 
     if (totalPoint > 21) {
       message.error("21학점 이상 신청할 수 없습니다.");
@@ -304,10 +306,11 @@ function ApplyTablePage() {
       <div css={container}>
         <div css={tableHeader}>
           <p css={tableHeaderTitle}>개설강좌목록</p>
-          <div css={tableHeaderRightMenu}>
+          <div css={tableHeaderMenu}>
             <span>
               총 조회 건수 &nbsp;<b>{filteredData.length}</b>&nbsp;건
             </span>
+            
           </div>
         </div>
         <SearchTable onSearch={onSearch} />

@@ -33,7 +33,7 @@ function NavBar() {
           <div className="menu__logo">
             <a href="/">
               <img
-               //src="https://www.sungkyul.ac.kr/sites/skukr/images/common/top-logo.png"
+               src="https://www.sungkyul.ac.kr/sites/skukr/images/common/top-logo.png"
                 alt="logo"
               />
             </a>

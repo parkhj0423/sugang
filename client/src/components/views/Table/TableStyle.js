@@ -30,6 +30,16 @@ export const tableHeaderRightMenu = css`
   font-size: 1rem;
 `;
 
+export const tableHeaderMenu = css`
+  display: flex;
+  justify-content: flex-end;
+
+  letter-spacing: -2px;
+  color: rgb(51, 51, 51);
+  font-weight: 600;
+  font-size: 1rem;
+`;
+
 //! searchTable css style
 
 export const searchContainer = css`
@@ -48,4 +58,13 @@ export const searchTh = css`
 
 export const searchTd = css`
   padding: 0 3rem 0 1.5rem;
+`;
+
+//! myInfo css style
+
+export const infoContainer = css`
+  width: 85%;
+  height: 150px;
+  margin: 2rem auto;
+  border: 1px solid;
 `;
