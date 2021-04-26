@@ -308,7 +308,7 @@ function ApplyTablePage() {
           <p css={tableHeaderTitle}>개설강좌목록</p>
           <div css={tableHeaderMenu}>
             <span>
-              총 조회 건수 &nbsp;<b>{filteredData.length}</b>&nbsp;건
+              총 조회 건수 &nbsp;<b>{IsSearch ? SearchComplete.length : filteredData.length}</b>&nbsp;건
             </span>
             
           </div>
