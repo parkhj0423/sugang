@@ -32,9 +32,8 @@ function CalendarPage() {
       date = arr[0];
       arr.shift();
       time = arr.join("");
-      console.log(date);
-      console.log(time);
-
+      
+      console.log(MySubject)
       if (value._d.toString().split(" ")[0] === "Mon") {
         listData = [{ type: "warning", content: MySubject[i].subjectName }];
       }
@@ -132,7 +131,7 @@ function CalendarPage() {
 
   return (
     <div>
-      <Calendar dateCellRender={dateCellRender} locale={locale} />
+      <Calendar dateCellRender={dateCellRender} locale={locale} validRange={[moment(), moment().add(0, "month")]}/>
     </div>
   );
 }

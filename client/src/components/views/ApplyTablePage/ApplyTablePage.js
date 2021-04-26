@@ -104,6 +104,20 @@ function ApplyTablePage() {
     setSubject(Subject.filter((item) => item.subjectId !== subject.subjectId));
   };
 
+  const dateCheck = (data) => {
+    let dataArr = data.split("");
+    dataArr.shift();
+    let dataTime = dataArr.join("");
+    for (let i = 0; i < appliedSubject.length; i++) {
+      let arr = appliedSubject[i].date.split("");
+      arr.shift();
+      let myTime = arr.join("");
+      if (dataTime === myTime) {
+        return false;
+      }
+    }
+  };
+
   const onApplyClick = (data) => {
     const {
       subjectId,
@@ -135,20 +149,28 @@ function ApplyTablePage() {
       division,
       // rate,
     };
+
     totalPoint += subjectPoint;
+    console.log(totalPoint)
 
     if (totalPoint > 21) {
       message.error("21학점 이상 신청할 수 없습니다.");
       return;
     }
-    dispatch(applySubject(variable)).then((response) => {
-      if (response.payload.success) {
-        message.success("신청 성공");
-        refreshFunction(response.payload.result);
-      } else {
-        message.error("신청 실패");
-      }
-    });
+
+    if (dateCheck(date) !== false) {
+      dispatch(applySubject(variable)).then((response) => {
+        if (response.payload.success) {
+          message.success("신청 성공");
+          refreshFunction(response.payload.result);
+        } else {
+          message.error("신청 실패");
+        }
+      });
+    } else {
+      message.error("동일한 시간대의 강의가 존재합니다");
+      return;
+    }
   };
 
   const onSearch = (searchedProps) => {
