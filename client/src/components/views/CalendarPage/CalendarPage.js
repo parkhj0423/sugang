@@ -3,9 +3,8 @@ import { Calendar, Badge, message } from "antd";
 import "./calendar.css";
 import { getMySubject } from "../../../_actions/subject_actions";
 import { useDispatch } from "react-redux";
-/** @jsx jsx */
-import { jsx, css } from "@emotion/react";
-import { infoContainer } from "../Table/TableStyle";
+import MyInfo from "./MyInfo";
+
 function CalendarPage() {
   const [MySubject, setMySubject] = useState([]);
 
@@ -122,7 +121,7 @@ function CalendarPage() {
 
   return (
     <div>
-      <div css={infoContainer}>myinfo</div>
+      <MyInfo />
       <Calendar dateCellRender={dateCellRender} />
     </div>
   );

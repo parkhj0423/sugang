@@ -22,6 +22,16 @@ const userSchema = mongoose.Schema({
         type:String,
         maxlength: 50
     },
+    studentNumber : {
+        type: Number
+    },
+    grade : {
+        type: Number
+    },
+    department : {
+        type: String
+    },
+    
     role : {
         type:Number,
         default: 0 

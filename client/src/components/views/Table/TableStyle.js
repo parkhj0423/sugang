@@ -64,7 +64,6 @@ export const searchTd = css`
 
 export const infoContainer = css`
   width: 85%;
-  height: 150px;
+
   margin: 2rem auto;
-  border: 1px solid;
 `;

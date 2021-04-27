@@ -242,7 +242,7 @@ function MySubjectPage(props) {
         columns={columns}
         dataSource={data}
         sticky
-        scroll={{ x: 1000, y: 300 }}
+        scroll={{ x: 1000, y: 500 }}
         pagination={false}
       />
     </div>
