@@ -105,14 +105,7 @@ function ApplyTablePage() {
   };
 
   const dateCheck = (data) => {
-    // let dataArr = data.split("");
-    // dataArr.shift();
-    // let dataTime = dataArr.join("");
-
     for (let i = 0; i < appliedSubject.length; i++) {
-      // let arr = appliedSubject[i].date.split("");
-      // arr.shift();
-      // let myTime = arr.join("");
       if (data === appliedSubject[i].date) {
         return false;
       }
@@ -187,7 +180,7 @@ function ApplyTablePage() {
         );
       } else {
         searchedData = searchedData.filter(
-          (item) => item[key] === searchedProps[key]
+          (item) => item[key].includes(searchedProps[key])
         );
       }
     }
@@ -308,9 +301,10 @@ function ApplyTablePage() {
           <p css={tableHeaderTitle}>개설강좌목록</p>
           <div css={tableHeaderMenu}>
             <span>
-              총 조회 건수 &nbsp;<b>{IsSearch ? SearchComplete.length : filteredData.length}</b>&nbsp;건
+              총 조회 건수 &nbsp;
+              <b>{IsSearch ? SearchComplete.length : filteredData.length}</b>
+              &nbsp;건
             </span>
-            
           </div>
         </div>
         <SearchTable onSearch={onSearch} />
