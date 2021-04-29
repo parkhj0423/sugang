@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
         type:String,
         maxlength: 50
     },
-    studentNumber : {
+    studentId : {
         type: Number
     },
     grade : {

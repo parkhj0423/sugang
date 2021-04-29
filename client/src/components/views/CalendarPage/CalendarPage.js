@@ -79,27 +79,6 @@ function CalendarPage() {
       }
     }
     return listData || [];
-    // switch (value._d.toString().split(" ")[0]) {
-    //   case "Mon":
-    //     listData = [{ type: "warning", content: MySubject[i].subjectName }];
-    //     break;
-    //   case "Tue":
-    //     listData = [{ type: "success", content: "This is usual event." }];
-    //     break;
-    //   case "Wed":
-    //     break;
-    //   case "Thu":
-    //     listData = [
-    //       { type: "warning", content: "This is warning event." },
-    //       { type: "success", content: "This is usual event." },
-    //     ];
-    //     break;
-    //   case "Fri":
-    //     listData = [{ type: "success", content: "This is usual event." }];
-    //     break;
-
-    //   default:
-    // }
   }
 
   function dateCellRender(value) {

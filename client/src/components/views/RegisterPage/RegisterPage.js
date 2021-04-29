@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -7,8 +7,10 @@ import { useDispatch } from "react-redux";
 /** @jsxFrag React.Fragment */
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
-import { Form } from "antd";
+import { Form, Select } from "antd";
 import { Link } from "react-router-dom";
+
+const { Option } = Select;
 
 const container = css`
   text-align: center;
@@ -66,7 +68,18 @@ const link = css`
 `;
 
 function RegisterPage(props) {
+  const [grade, setGrade] = useState("");
+  const [department, setDepartment] = useState("");
   const dispatch = useDispatch();
+
+  const onGradeChange = (value) => {
+    setGrade(value);
+  };
+
+  const onDepartmentChange = (value) => {
+    setDepartment(value);
+  };
+
   return (
     <Formik
       initialValues={{
@@ -75,6 +88,9 @@ function RegisterPage(props) {
         name: "",
         password: "",
         confirmPassword: "",
+        studentId: "",
+        grade: "",
+        department: "",
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().required("이름을 입력하세요"),
@@ -88,6 +104,9 @@ function RegisterPage(props) {
         confirmPassword: Yup.string()
           .oneOf([Yup.ref("password"), null], "비밀번호가 다릅니다")
           .required("비밀번호를 다시한번 확인해주세요"),
+        studentId: Yup.string()
+          .min(8, "8자 이상의 학번을 입력하세요")
+          .required("학번을 입력하세요"),
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
@@ -97,11 +116,14 @@ function RegisterPage(props) {
             name: values.name,
             lastname: values.lastname,
             image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`,
+            studentId: values.studentId,
+            grade,
+            department,
           };
 
           dispatch(registerUser(dataToSubmit)).then((response) => {
             if (response.payload.success) {
-              props.history.push("/login");
+              props.history.push("/");
             } else {
               alert(response.payload.err.errmsg);
             }
@@ -163,6 +185,98 @@ function RegisterPage(props) {
                 />
                 {errors.lastName && touched.lastName && (
                   <div className="input-feedback">{errors.lastName}</div>
+                )}
+              </Form.Item>
+              <Form.Item required label="Student Id">
+                <input
+                  css={input}
+                  id="studentId"
+                  placeholder="Enter your Student Id"
+                  type="text"
+                  value={values.studentId}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={
+                    errors.studentId && touched.studentId
+                      ? "text-input error"
+                      : "text-input"
+                  }
+                />
+                {errors.studentId && touched.studentId && (
+                  <div className="input-feedback">{errors.studentId}</div>
+                )}
+              </Form.Item>
+              <Form.Item required label="Grade">
+                <Select
+                  id="grade"
+                  placeholder="Select your Grade"
+                  type="text"
+                  value={grade}
+                  onChange={onGradeChange}
+                  onBlur={handleBlur}
+                  className={
+                    errors.grade && touched.grade
+                      ? "text-input error"
+                      : "text-input"
+                  }
+                >
+                  <Option value="1">1학년</Option>
+                  <Option value="2">2학년</Option>
+                  <Option value="3">3학년</Option>
+                  <Option value="4">4학년</Option>
+                </Select>
+                {errors.grade && touched.grade && (
+                  <div className="input-feedback">{errors.grade}</div>
+                )}
+              </Form.Item>
+
+              <Form.Item required label="Department">
+                <Select
+                  id="department"
+                  placeholder="Select your Department"
+                  type="text"
+                  value={department}
+                  onChange={onDepartmentChange}
+                  onBlur={handleBlur}
+                  className={
+                    errors.department && touched.department
+                      ? "text-input error"
+                      : "text-input"
+                  }
+                >
+                  <Option value="신학부">신학부</Option>
+                  <Option value="신학과">신학과</Option>
+                  <Option value="기독교교육상담학과">기독교교육상담학과</Option>
+                  <Option value="영어영문학과">영어영문학과</Option>
+                  <Option value="중어중문학과">중어중문학과</Option>
+                  <Option value="국어국문학과">국어국문학과</Option>
+                  <Option value="사회복지학과">사회복지학과</Option>
+                  <Option value="국제개발협력학과">국제개발협력학과</Option>
+                  <Option value="행정학과">행정학과</Option>
+                  <Option value="유아교육과">유아교육과</Option>
+                  <Option value="체육교육과">체육교육과</Option>
+                  <Option value="교직부">교직부</Option>
+                  <Option value="음악학부">음악학부</Option>
+                  <Option value="연극영화학부">연극영화학부</Option>
+                  <Option value="뷰티디자인학과">뷰티디자인학과</Option>
+                  <Option value="공연예술음악학부">공연예술음악학부</Option>
+                  <Option value="파이데이아학부">파이데이아학부</Option>
+                  <Option value="융합학부">융합학부</Option>
+                  <Option value="관광개발학과">관광개발학과</Option>
+                  <Option value="경영학과">경영학과</Option>
+                  <Option value="동아시아물류학부">동아시아물류학부</Option>
+                  <Option value="산업경영공학과">산업경영공학과</Option>
+                  <Option value="컴퓨터공학과">컴퓨터공학과</Option>
+                  <Option value="정보통신공학과">정보통신공학과</Option>
+                  <Option value="미디어소프트웨어학과">
+                    미디어소프트웨어학과
+                  </Option>
+                  <Option value="도시디자인정보공학과">
+                    도시디자인정보공학과
+                  </Option>
+                </Select>
+                {errors.department && touched.department && (
+                  <div className="input-feedback">{errors.department}</div>
                 )}
               </Form.Item>
 

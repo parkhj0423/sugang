@@ -1,7 +1,12 @@
 import React from "react";
+import MyInfo from "../CalendarPage/MyInfo";
 
 function NoticePage() {
-  return <div>notice</div>;
+  return (
+    <div>
+      <MyInfo />
+    </div>
+  );
 }
 
 export default NoticePage;

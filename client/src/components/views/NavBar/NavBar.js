@@ -80,8 +80,8 @@ function NavBar() {
               </li>
               <li className="li_content">
                 <Link to="/" className="link">
-                  <Icon type="gift" className="icon" />
-                  <p>장바구니 정보</p>
+                  <Icon type="retweet" className="icon" />
+                  <p>강의 교환하기</p>
                 </Link>
               </li>
               <li className="li_content">
