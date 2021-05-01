@@ -79,7 +79,7 @@ function NavBar() {
                 </Link>
               </li>
               <li className="li_content">
-                <Link to="/" className="link">
+                <Link to={`/subject/${userId}/exchange`} className="link">
                   <Icon type="retweet" className="icon" />
                   <p>강의 교환하기</p>
                 </Link>
