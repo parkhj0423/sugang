@@ -47,11 +47,11 @@ function MySubjectPage(props) {
       }
     });
   }, []);
-
+  // 21학점을 넘지않게끔 자신이 신청한 학점을 수시로 계산
   for (let i = 0; i < MySubject.length; i++) {
     totalPoint += MySubject[i].subjectPoint;
   }
-
+  // api 를 통해 가져온 강의정보들을 배열에 push 하고 출력
   let data = [];
   for (let i = 0; i < MySubject.length; i++) {
     data.push({
@@ -95,18 +95,22 @@ function MySubjectPage(props) {
   // 강의 취소를 위한 onClick 함수
   const onCancelClick = (data) => {
     const { subjectId } = data;
+    const randomCount = (Math.floor(Math.random() * 9) + 0) * 1000;
+
+    message.loading("강의 취소 진행중....", randomCount / 1000, onclose);
 
     let variable = {
       user: userId,
       subjectId,
+      randomCount,
     };
 
     dispatch(deleteMySubject(variable)).then((response) => {
       if (response.payload.result) {
-        message.success("삭제 성공");
+        message.success("취소 성공");
         refreshFunction(response.payload.result);
       } else {
-        message.success("삭제 실패");
+        message.success("취소 실패");
       }
     });
   };
@@ -239,11 +243,12 @@ function MySubjectPage(props) {
         </div>
       </div>
       <Table
-        columns={columns}
+        columns={columns} 
         dataSource={data}
         sticky
         scroll={{ x: 1000, y: 500 }}
         pagination={false}
+        
       />
     </div>
   );

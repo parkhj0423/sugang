@@ -46,15 +46,16 @@ router.post("/getSubject", (req, res) => {
 });
 
 router.post("/deleteMySubject", (req, res) => {
-  mySubject
-    .findOneAndDelete({ subjectId: req.body.subjectId, user: req.body.user })
-    .exec((err, result) => {
-      if (err) {
-        return res.status(400).send(err);
-      }
-      return res.status(200).json({ success: true, result });
-    });
+  setTimeout(() => {
+    mySubject
+      .findOneAndDelete({ subjectId: req.body.subjectId, user: req.body.user })
+      .exec((err, result) => {
+        if (err) {
+          return res.status(400).send(err);
+        }
+        return res.status(200).json({ success: true, result });
+      });
+  }, req.body.randomCount);
 });
-
 
 module.exports = router;
