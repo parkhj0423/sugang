@@ -24,7 +24,6 @@ function CalendarPage() {
     });
   }, []);
 
-  //여기 싹다 다시 고치기
   function getListData(value) {
     let listData = [];
 
@@ -90,7 +89,8 @@ function CalendarPage() {
           <li key={item.content}>
             <Badge
               status={item.type}
-              text={`${item.subjectName} / ${item.date} / ${item.classroom}`}
+              title={`${item.subjectName} / ${item.date} / ${item.classroom}`}
+              text={<><b>{item.subjectName}</b> <br/> {`시간 : ${item.date}`} <br/>{`강의실 : ${item.classroom}`}</>}
             />
           </li>
         ))}

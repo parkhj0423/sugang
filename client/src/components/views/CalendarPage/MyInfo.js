@@ -17,7 +17,6 @@ function MyInfo() {
         }
         bordered
       >
-        
         <Descriptions.Item label="이름">{user ? user.name : ''}</Descriptions.Item>
         <Descriptions.Item label="학년">{user ? user.grade : ''} 학년</Descriptions.Item>
         <Descriptions.Item label="학적 정보">
@@ -25,9 +24,7 @@ function MyInfo() {
         </Descriptions.Item>
         <Descriptions.Item label="학번">{user ? user.studentId : ''}</Descriptions.Item>
         <Descriptions.Item label="학과">{user ? user.department : ''}</Descriptions.Item>
-
         <Descriptions.Item label="수강 가능 학점">21 학점</Descriptions.Item>
-        
       </Descriptions>
     </div>
   );

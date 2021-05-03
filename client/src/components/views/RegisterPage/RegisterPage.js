@@ -145,7 +145,9 @@ function RegisterPage(props) {
         } = props;
         return (
           <div css={container}>
-            <h1>간편회원가입</h1>
+            <h1>
+              <b>회원 가입</b>
+            </h1>
             <div css={line} />
             <form css={form} onSubmit={handleSubmit}>
               <Form.Item required label="Name">
