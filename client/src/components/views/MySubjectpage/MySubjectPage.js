@@ -17,8 +17,8 @@ import {
 import CountApply from "../Table/CountApply";
 
 function MySubjectPage(props) {
-  const userId = props.match.params.userId;
-  // const userId = localStorage.getItem("userId");
+  //const userId = props.match.params.userId;
+   const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
   let totalPoint = 0;
 
@@ -248,7 +248,6 @@ function MySubjectPage(props) {
         sticky
         scroll={{ x: 1000, y: 500 }}
         pagination={false}
-        
       />
     </div>
   );

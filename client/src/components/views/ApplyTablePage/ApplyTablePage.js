@@ -179,8 +179,8 @@ function ApplyTablePage() {
           (item) => item[key].split("")[0] === searchedProps[key]
         );
       } else {
-        searchedData = searchedData.filter(
-          (item) => item[key].includes(searchedProps[key])
+        searchedData = searchedData.filter((item) =>
+          item[key].includes(searchedProps[key])
         );
       }
     }
