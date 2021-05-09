@@ -61,13 +61,33 @@ function ExchangeModal(props) {
             의 강의 상세 정보
           </Text>
           <br />
-          <Text>학과명 : {props.data.department}</Text>
+          <Text>
+            학과명 :
+            <Text code>
+              <b>{props.data.department}</b>
+            </Text>
+          </Text>
           <br />
-          <Text>강의명 : {props.data.subjectName}</Text>
+          <Text>
+            강의명 :
+            <Text code>
+              <b>{props.data.subjectName}</b>
+            </Text>
+          </Text>
           <br />
-          <Text>교수명 : {props.data.professorName}</Text>
+          <Text>
+            교수명 :
+            <Text code>
+              <b>{props.data.professorName}</b>
+            </Text>
+          </Text>
           <br />
-          <Text>수업 시간 : {props.data.date}</Text>
+          <Text>
+            수업 시간 :
+            <Text code>
+              <b>{props.data.date}</b>
+            </Text>
+          </Text>
         </div>
         <br />
         <br />

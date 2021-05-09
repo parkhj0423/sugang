@@ -159,6 +159,22 @@ export default function ExchangeSubjectPage() {
     //! filterExchangeList(MySubject, AppliedSubject, false) 해서 나온 값에서 SelectedData랑 date 값만 다른거 하나씩 뽑아서
     //! dispatch 메소드 만든다음 교환 진행
     //! count 값 같은거 만들어서 누르면 1씩 올라가고 양쪽다 눌러서 2 되면 디스패치로 교환
+    let myFilteredData = filterExchangeList(
+      MySubject,
+      AppliedSubject,
+      false
+    ).filter(
+      (subject) =>
+        subject.subjectName === SelectedData.subjectName &&
+        subject.date !== SelectedData.date &&
+        subject.professorName === SelectedData.professorName
+    );
+    console.log(SelectedData); // 내가 교환하고자 하는 데이터
+    console.log(myFilteredData); // 내가 신청해놓은 데이터
+
+    //! SelectedData를 api통해서 올리고
+    //! devtools로 값 뽑아서 상시 확인 count값이 2이면 교환 진행
+
     setVisible(false);
   };
 
@@ -168,7 +184,6 @@ export default function ExchangeSubjectPage() {
 
   return (
     <div css={container}>
-      <p css={tableHeaderTitle}>강의 교환하기</p>
       <p css={tableHeaderTitle}>교환신청 가능한 강의 목록</p>
       <Table
         columns={columns}
