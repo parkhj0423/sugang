@@ -4,8 +4,9 @@ import { Button, message, Table } from "antd";
 import { jsx, css } from "@emotion/react";
 import { useDispatch } from "react-redux";
 import {
-  exchangeSubject,
+  addExchangeSubject,
   getMySubject,
+  switchExchangeSubject,
 } from "../../../_actions/subject_actions";
 import { tableHeaderTitle, container } from "../Table/TableStyle";
 import ExchangeModal from "./ExchangeModal";
@@ -16,7 +17,7 @@ export default function ExchangeSubjectPage() {
   const [MySubject, setMySubject] = useState([]);
   const [Visible, setVisible] = useState(false);
   const [SelectedData, setSelectedData] = useState([]);
-  const [FilteredData, setFilteredData] = useState([]);
+
   const userId = localStorage.getItem("userId");
   useEffect(() => {
     let variable = {
@@ -38,6 +39,12 @@ export default function ExchangeSubjectPage() {
         console.log("AppliedSubject", response.payload.result);
       } else {
         message.error("불러오기 실패");
+      }
+    });
+
+    dispatch(switchExchangeSubject()).then((response) => {
+      if (response.payload.result) {
+        console.log(response.payload.result);
       }
     });
   }, []);
@@ -179,7 +186,7 @@ export default function ExchangeSubjectPage() {
       professorName: SelectedData.professorName,
       date: SelectedData.date,
     };
-    dispatch(exchangeSubject(variable)).then((response) => {
+    dispatch(addExchangeSubject(variable)).then((response) => {
       if (response.payload.success) {
         message.success("교환 신청 완료");
         // refreshFunction(response.payload.result);

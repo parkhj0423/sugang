@@ -3,7 +3,8 @@ import {
   GET_SUBJECT,
   DELETE_MYSUBJECT,
   APPLY_SUBJECT,
-  EXCHANGE_SUBJECT,
+  ADD_EXCHANGE_SUBJECT,
+  SWITCH_EXCHANGE_SUBJECT,
 } from "../_actions/types";
 
 export default function (state = {}, action) {
@@ -16,7 +17,9 @@ export default function (state = {}, action) {
       return { ...state, deleteSuccess: action.payload };
     case APPLY_SUBJECT:
       return { ...state, applySuccess: action.payload };
-    case EXCHANGE_SUBJECT:
+    case ADD_EXCHANGE_SUBJECT:
+      return { ...state, exchangeSuccess: action.payload };
+    case SWITCH_EXCHANGE_SUBJECT:
       return { ...state, exchangeSuccess: action.payload };
     default:
       return state;

@@ -3,7 +3,8 @@ import {
   GET_SUBJECT,
   DELETE_MYSUBJECT,
   APPLY_SUBJECT,
-  EXCHANGE_SUBJECT,
+  ADD_EXCHANGE_SUBJECT,
+  SWITCH_EXCHANGE_SUBJECT,
 } from "../_actions/types";
 
 import { SUBJECT_SERVER } from "../components/Config.js";
@@ -53,13 +54,25 @@ export function deleteMySubject(dataToSubmit) {
   };
 }
 
-export function exchangeSubject(dataToSubmit) {
+export function addExchangeSubject(dataToSubmit) {
   const request = axios
-    .post(`${SUBJECT_SERVER}/exchangeSubject`, dataToSubmit)
+    .post(`${SUBJECT_SERVER}/addExchangeSubject`, dataToSubmit)
     .then((response) => response.data);
 
   return {
-    type: EXCHANGE_SUBJECT ,
+    type: ADD_EXCHANGE_SUBJECT ,
+    payload: request,
+  };
+}
+
+
+export function switchExchangeSubject(dataToSubmit) {
+  const request = axios
+    .post(`${SUBJECT_SERVER}/switchExchangeSubject`, dataToSubmit)
+    .then((response) => response.data);
+
+  return {
+    type: SWITCH_EXCHANGE_SUBJECT ,
     payload: request,
   };
 }
