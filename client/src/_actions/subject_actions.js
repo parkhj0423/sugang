@@ -3,6 +3,7 @@ import {
   GET_SUBJECT,
   DELETE_MYSUBJECT,
   APPLY_SUBJECT,
+  EXCHANGE_SUBJECT,
 } from "../_actions/types";
 
 import { SUBJECT_SERVER } from "../components/Config.js";
@@ -48,6 +49,17 @@ export function deleteMySubject(dataToSubmit) {
 
   return {
     type: DELETE_MYSUBJECT,
+    payload: request,
+  };
+}
+
+export function exchangeSubject(dataToSubmit) {
+  const request = axios
+    .post(`${SUBJECT_SERVER}/exchangeSubject`, dataToSubmit)
+    .then((response) => response.data);
+
+  return {
+    type: EXCHANGE_SUBJECT ,
     payload: request,
   };
 }

@@ -3,7 +3,10 @@ import { Button, message, Table } from "antd";
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 import { useDispatch } from "react-redux";
-import { getMySubject } from "../../../_actions/subject_actions";
+import {
+  exchangeSubject,
+  getMySubject,
+} from "../../../_actions/subject_actions";
 import { tableHeaderTitle, container } from "../Table/TableStyle";
 import ExchangeModal from "./ExchangeModal";
 
@@ -13,7 +16,7 @@ export default function ExchangeSubjectPage() {
   const [MySubject, setMySubject] = useState([]);
   const [Visible, setVisible] = useState(false);
   const [SelectedData, setSelectedData] = useState([]);
-
+  const [FilteredData, setFilteredData] = useState([]);
   const userId = localStorage.getItem("userId");
   useEffect(() => {
     let variable = {
@@ -141,6 +144,7 @@ export default function ExchangeSubjectPage() {
           style={{ padding: "0 5px" }}
           type="primary"
           onClick={() => showModal(record)}
+          disabled={record.subjectId === SelectedData.subjectId ? true : false}
         >
           교환 신청하기
         </Button>
@@ -155,10 +159,6 @@ export default function ExchangeSubjectPage() {
   };
 
   const handleOk = (props) => {
-    //! 여기서 신청 버튼 눌렀을때 SelectedData에는 해당 행의 값이 담겨져 있음
-    //! filterExchangeList(MySubject, AppliedSubject, false) 해서 나온 값에서 SelectedData랑 date 값만 다른거 하나씩 뽑아서
-    //! dispatch 메소드 만든다음 교환 진행
-    //! count 값 같은거 만들어서 누르면 1씩 올라가고 양쪽다 눌러서 2 되면 디스패치로 교환
     let myFilteredData = filterExchangeList(
       MySubject,
       AppliedSubject,
@@ -171,11 +171,25 @@ export default function ExchangeSubjectPage() {
     );
     console.log(SelectedData); // 내가 교환하고자 하는 데이터
     console.log(myFilteredData); // 내가 신청해놓은 데이터
+    let variable = {
+      user: userId,
+      subjectId: SelectedData.subjectId,
+      department: SelectedData.department,
+      subjectName: SelectedData.subjectName,
+      professorName: SelectedData.professorName,
+      date: SelectedData.date,
+    };
+    dispatch(exchangeSubject(variable)).then((response) => {
+      if (response.payload.success) {
+        message.success("교환 신청 완료");
+        // refreshFunction(response.payload.result);
+        console.log(response.payload.success);
+      } else {
+        message.error("이미 신청했거나 교환 신청에 문제가 생겼습니다.");
+      }
+    });
 
-    //! SelectedData를 api통해서 올리고
-    //! devtools로 값 뽑아서 상시 확인 count값이 2이면 교환 진행
-
-    setVisible(false);
+    setVisible(props);
   };
 
   const handleCancel = (props) => {
@@ -184,7 +198,7 @@ export default function ExchangeSubjectPage() {
 
   return (
     <div css={container}>
-      <p css={tableHeaderTitle}>교환신청 가능한 강의 목록</p>
+      <p css={tableHeaderTitle}>신청 가능한 강의 목록</p>
       <Table
         columns={columns}
         dataSource={filterExchangeList(MySubject, AppliedSubject, true)}
