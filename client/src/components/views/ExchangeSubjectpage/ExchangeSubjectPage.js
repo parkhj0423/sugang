@@ -43,8 +43,9 @@ export default function ExchangeSubjectPage() {
     });
 
     dispatch(switchExchangeSubject()).then((response) => {
-      if (response.payload.result) {
-        console.log(response.payload.result);
+      if (response.payload.success) {
+        console.log(response.payload.success);
+        message.success("강의 교환 성공");
       }
     });
   }, []);
@@ -68,6 +69,8 @@ export default function ExchangeSubjectPage() {
     }
     // 3번째 파라미터로 받아온 someslist의 값이 false 면 다른 사람이 아닌 내가 신청한 강의 리스트이고
     // true 이면 다른 사람이 신청한 리스트 곧 내가 교환하고자 하는 강의 리스트이다
+
+    //! 중복 제거해서 출력 만들기
     if (someonesList) {
       return filteredSubject;
     } else {

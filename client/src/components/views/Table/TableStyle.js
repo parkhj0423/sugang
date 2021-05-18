@@ -3,8 +3,8 @@ import { jsx, css } from "@emotion/react";
 
 export const container = css`
   width: 95%;
-  height: 600px;
-  margin: 2rem auto;
+  height: auto;
+  margin: 2rem;
 `;
 
 export const tableHeader = css`

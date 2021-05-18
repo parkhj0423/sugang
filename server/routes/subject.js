@@ -106,24 +106,64 @@ router.post("/switchExchangeSubject", (req, res) => {
         ) {
           // mySubject에서 findOneAndUpdate로 result[i] 값찾아서
           // result[j]로 바꾸면 끝
-          console.log(result[i]);
-          console.log(result[j]);
+          //! mySubject에서 내가 교환하고자하는 강의와 상대방이 교환하고자하는
+          //! 강의를 수정
+          mySubject
+            .findOneAndUpdate(
+              {
+                subjectId: result[i].subjectId,
+                user: result[j].user,
+              },
+              {
+                subjectId: result[j].subjectId,
+                date: result[j].date,
+              }
+            )
+            .exec((err) => {
+              if (err) {
+                return res.status(400).send(err);
+              }
+            });
 
-          // mySubject
-          //   .findOneAndUpdate({
-          //     subjectId: req.body.subjectId,
-          //     user: req.body.user,
-          //   })
-          //   .exec((err, result) => {
-          //     if (err) {
-          //       return res.status(400).send(err);
-          //     }
-          //     return res.status(200).json({ success: true, result });
-          //   });
+          mySubject
+            .findOneAndUpdate(
+              {
+                subjectId: result[j].subjectId,
+                user: result[i].user,
+              },
+              {
+                subjectId: result[i].subjectId,
+                date: result[i].date,
+              }
+            )
+            .exec((err, result) => {
+              if (err) {
+                return res.status(400).send(err);
+              }
+            });
+
+          ExchangeSubject.findOneAndDelete({
+            subjectId: result[i].subjectId,
+            user: result[i].user,
+          }).exec((err) => {
+            if (err) {
+              return res.status(400).send(err);
+            }
+          });
+
+          ExchangeSubject.findOneAndDelete({
+            subjectId: result[j].subjectId,
+            user: result[j].user,
+          }).exec((err) => {
+            if (err) {
+              return res.status(400).send(err);
+            }
+          });
+
+          return res.status(200).json({ success: true });
         }
       }
     }
-    return res.status(200).json({ result });
   });
 });
 
