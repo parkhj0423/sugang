@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import Auth from "../hoc/auth";
+
 // pages for this product
 
 import LoginPage from "./views/LoginPage/LoginPage.js";
@@ -17,7 +18,10 @@ import ExchangeSubjectPage from "./views/ExchangeSubjectpage/ExchangeSubjectPage
 //true   only logged in user can go inside
 //false  logged in user can't go inside
 
+
+
 function App() {
+  
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <NavBar />
@@ -29,13 +33,13 @@ function App() {
         }}
       >
         <Switch>
+          <Route exact path="/notice" component={Auth(NoticePage, true)} />
           <Route exact path="/subject" component={Auth(ApplyTablePage, true)} />
           <Route
             exact
             path="/subject/:userId/exchange"
             component={Auth(ExchangeSubjectPage, true)}
           />
-          <Route exact path="/notice" component={Auth(NoticePage, true)} />
           <Route exact path="/calendar" component={Auth(CalendarPage, true)} />
           <Route
             exact

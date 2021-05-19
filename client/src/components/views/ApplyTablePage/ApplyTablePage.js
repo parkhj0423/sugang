@@ -97,8 +97,6 @@ function ApplyTablePage() {
       );
     }
   }
-  console.log(data);
-  console.log(filteredData);
 
   const refreshFunction = (subject) => {
     setSubject(Subject.filter((item) => item.subjectId !== subject.subjectId));
@@ -172,11 +170,15 @@ function ApplyTablePage() {
     console.log(searchedProps);
     searchedData = filteredData;
     for (let key in searchedProps) {
-      // console.log(`${key} : ${searchedProps[key]}`);
+      console.log(`${key} : ${searchedProps[key]}`);
 
       if (key === "date") {
         searchedData = searchedData.filter(
           (item) => item[key].split("")[0] === searchedProps[key]
+        );
+      } else if (key === "subjectPoint") {
+        searchedData = searchedData.filter(
+          (item) => String(item[key]) === String(searchedProps[key])
         );
       } else {
         searchedData = searchedData.filter((item) =>

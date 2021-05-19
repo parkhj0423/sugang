@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LeftMenu from "./Sections/LeftMenu";
 import RightMenu from "./Sections/RightMenu";
-import { Drawer, Button, Icon } from "antd";
+import { Drawer, Button, Icon, Statistic } from "antd";
 import "./Sections/Navbar.css";
 import { Link } from "react-router-dom";
 
