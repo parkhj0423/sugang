@@ -117,7 +117,9 @@ function LoginPage(props) {
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
   const [rememberMe, setRememberMe] = useState(rememberMeChecked);
+  
 
+  
   const handleRememberMe = () => {
     setRememberMe(!rememberMe);
   };
@@ -159,8 +161,8 @@ function LoginPage(props) {
                     window.localStorage.setItem("rememberMe", values.email);
                   } else {
                     localStorage.removeItem("rememberMe");
-                  }
-                  props.history.push("/notice");
+                  }     
+                  props.history.push("/countdown");
                 } else {
                   setFormErrorMessage("계정과 비밀번호를 다시 확인해주세요");
                 }

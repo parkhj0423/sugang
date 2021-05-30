@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 import { Icon } from "antd";
@@ -36,6 +36,7 @@ const em = css`
 `;
 
 function NoticePage() {
+  
   return (
     <div>
       <div css={heading}>공지사항</div>

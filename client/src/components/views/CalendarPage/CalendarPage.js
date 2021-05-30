@@ -34,8 +34,6 @@ function CalendarPage() {
       date = arr[0];
       arr.shift();
       time = arr.join("");
-      console.log(date);
-      console.log(time);
       if (value._d.toString().split(" ")[0] === "Mon" && date === "월") {
         listData.push({
           type: "success",
@@ -90,7 +88,13 @@ function CalendarPage() {
             <Badge
               status={item.type}
               title={`${item.subjectName} / ${item.date} / ${item.classroom}`}
-              text={<><b>{item.subjectName}</b> <br/> {`시간 : ${item.date}`} <br/>{`강의실 : ${item.classroom}`}</>}
+              text={
+                <>
+                  <b>{item.subjectName}</b> <br /> {`시간 : ${item.date}`}
+                  <br />
+                  {`강의실 : ${item.classroom}`}
+                </>
+              }
             />
           </li>
         ))}

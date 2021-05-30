@@ -13,6 +13,7 @@ import ApplyTablePage from "./views/ApplyTablePage/ApplyTablePage";
 import NoticePage from "./views/NoticePage/NoticePage";
 import CalendarPage from "./views/CalendarPage/CalendarPage";
 import ExchangeSubjectPage from "./views/ExchangeSubjectpage/ExchangeSubjectPage";
+import BeforeCountDownPage from "./views/NavBar/BeforeCountDownPage";
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -33,6 +34,7 @@ function App() {
         }}
       >
         <Switch>
+          <Route exact path="/countdown" component={Auth(BeforeCountDownPage, true)} />
           <Route exact path="/notice" component={Auth(NoticePage, true)} />
           <Route exact path="/subject" component={Auth(ApplyTablePage, true)} />
           <Route

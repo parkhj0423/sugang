@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import LeftMenu from "./Sections/LeftMenu";
 import RightMenu from "./Sections/RightMenu";
-import { Drawer, Button, Icon, Statistic } from "antd";
+import { Drawer, Button, Icon } from "antd";
 import "./Sections/Navbar.css";
 import { Link } from "react-router-dom";
+import BeforeCountDownPage from "./BeforeCountDownPage";
 
 function NavBar() {
   const [visible, setVisible] = useState(false);
   const [ScrollPos, setScrollPos] = useState(0);
   const [Show, setShow] = useState(true);
+  
 
   const userId = localStorage.getItem("userId");
 
@@ -72,36 +74,39 @@ function NavBar() {
           <li className="li_top"></li>
           {localStorage.getItem("userId") && (
             <>
-              <li className="li_content">
-                <Link to="/notice" className="link">
-                  <Icon type="notification" className="icon" />
-                  <p>공지사항</p>
-                </Link>
-              </li>
-              <li className="li_content">
-                <Link to={`/subject/${userId}/exchange`} className="link">
-                  <Icon type="retweet" className="icon" />
-                  <p>강의 교환하기</p>
-                </Link>
-              </li>
-              <li className="li_content">
-                <Link to="/subject" className="link">
-                  <Icon type="hdd" className="icon" />
-                  <p>수강신청</p>
-                </Link>
-              </li>
-              <li className="li_content">
-                <Link to={`/subject/${userId}`} className="link">
-                  <Icon type="schedule" className="icon" />
-                  <p>수강신청 내역</p>
-                </Link>
-              </li>
-              <li className="li_content">
-                <Link to="/calendar" className="link">
-                  <Icon type="calendar" className="icon" />
-                  <p>종합시간표&nbsp; 조회</p>
-                </Link>
-              </li>
+              <>
+                <li className="li_content">
+                  <Link to="/notice" className="link">
+                    <Icon type="notification" className="icon" />
+                    <p>공지사항</p>
+                  </Link>
+                </li>
+                <li className="li_content">
+                  <Link to={`/subject/${userId}/exchange`} className="link">
+                    <Icon type="retweet" className="icon" />
+                    <p>강의 교환하기</p>
+                  </Link>
+                </li>
+                <li className="li_content">
+                  <Link to="/subject" className="link">
+                    <Icon type="hdd" className="icon" />
+                    <p>수강신청</p>
+                  </Link>
+                </li>
+                <li className="li_content">
+                  <Link to={`/subject/${userId}`} className="link">
+                    <Icon type="schedule" className="icon" />
+                    <p>수강신청 내역</p>
+                  </Link>
+                </li>
+                <li className="li_content">
+                  <Link to="/calendar" className="link">
+                    <Icon type="calendar" className="icon" />
+                    <p>종합시간표&nbsp; 조회</p>
+                  </Link>
+                </li>
+              </>
+              
             </>
           )}
         </ul>
