@@ -14,6 +14,7 @@ import NoticePage from "./views/NoticePage/NoticePage";
 import CalendarPage from "./views/CalendarPage/CalendarPage";
 import ExchangeSubjectPage from "./views/ExchangeSubjectpage/ExchangeSubjectPage";
 import BeforeCountDownPage from "./views/NavBar/BeforeCountDownPage";
+import DrawSubjectPage from "./views/DrawSubjectPage/DrawSubjectPage";
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -41,6 +42,11 @@ function App() {
             exact
             path="/subject/:userId/exchange"
             component={Auth(ExchangeSubjectPage, true)}
+          />
+          <Route
+            exact
+            path="/subject/:userId/draw"
+            component={Auth(DrawSubjectPage, true)}
           />
           <Route exact path="/calendar" component={Auth(CalendarPage, true)} />
           <Route

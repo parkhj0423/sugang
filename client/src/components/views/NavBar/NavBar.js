@@ -4,13 +4,11 @@ import RightMenu from "./Sections/RightMenu";
 import { Drawer, Button, Icon } from "antd";
 import "./Sections/Navbar.css";
 import { Link } from "react-router-dom";
-import BeforeCountDownPage from "./BeforeCountDownPage";
 
 function NavBar() {
   const [visible, setVisible] = useState(false);
   const [ScrollPos, setScrollPos] = useState(0);
   const [Show, setShow] = useState(true);
-  
 
   const userId = localStorage.getItem("userId");
 
@@ -88,6 +86,12 @@ function NavBar() {
                   </Link>
                 </li>
                 <li className="li_content">
+                  <Link to={`/subject/${userId}/draw`} className="link">
+                    <Icon type="solution" className="icon" />
+                    <p>강의&nbsp;추첨</p>
+                  </Link>
+                </li>
+                <li className="li_content">
                   <Link to="/subject" className="link">
                     <Icon type="hdd" className="icon" />
                     <p>수강신청</p>
@@ -106,7 +110,6 @@ function NavBar() {
                   </Link>
                 </li>
               </>
-              
             </>
           )}
         </ul>
