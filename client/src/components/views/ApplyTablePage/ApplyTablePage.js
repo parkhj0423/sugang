@@ -78,7 +78,7 @@ function ApplyTablePage() {
       countApply: (
         <CountApply AppliedSubject={Subject[i]} subject={MySubject} />
       ),
-      limitApply: 30,
+      limitApply: 5,
       competitionRate: (
         <CountApply
           AppliedSubject={Subject[i]}

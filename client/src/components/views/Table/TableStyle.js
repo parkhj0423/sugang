@@ -19,6 +19,13 @@ export const tableHeaderTitle = css`
   font-size: 1.5rem;
 `;
 
+export const subTitle = css`
+padding-left: 15px;
+  line-height: 1.3;
+  font-size: 18px;
+  color: #4974b2;
+`;
+
 export const tableHeaderRightMenu = css`
   width: 500px;
   display: flex;

@@ -10,6 +10,7 @@ import {
 } from "../../../_actions/subject_actions";
 import { tableHeaderTitle, container } from "../Table/TableStyle";
 import ExchangeModal from "./ExchangeModal";
+import Accordion from "../Table/Accordion";
 
 export default function ExchangeSubjectPage() {
   const dispatch = useDispatch();
@@ -222,6 +223,7 @@ export default function ExchangeSubjectPage() {
         handleCancel={handleCancel}
         data={SelectedData}
       />
+      <Accordion/>
     </div>
   );
 }

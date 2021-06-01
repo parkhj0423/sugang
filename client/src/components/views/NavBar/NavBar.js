@@ -33,7 +33,7 @@ function NavBar() {
           <div className="menu__logo">
             <a href="/">
               <img
-                src="https://www.sungkyul.ac.kr/sites/skukr/images/common/top-logo.png"
+                //src="https://www.sungkyul.ac.kr/sites/skukr/images/common/top-logo.png"
                 alt="logo"
               />
             </a>
@@ -70,7 +70,7 @@ function NavBar() {
       <nav className="menu menu_vertical">
         <ul>
           <li className="li_top"></li>
-          {localStorage.getItem("userId") && (
+         
             <>
               <>
                 <li className="li_content">
@@ -111,7 +111,7 @@ function NavBar() {
                 </li>
               </>
             </>
-          )}
+         
         </ul>
       </nav>
     </>

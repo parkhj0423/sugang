@@ -21,7 +21,7 @@ function CountApply(props) {
         applyCount += 1;
       }
     }
-    result = applyCount / 30;
+    result = applyCount / 5;
     return `${result.toFixed(2)} : 1`;
   };
 

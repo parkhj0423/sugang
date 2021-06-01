@@ -20,10 +20,7 @@ import DrawSubjectPage from "./views/DrawSubjectPage/DrawSubjectPage";
 //true   only logged in user can go inside
 //false  logged in user can't go inside
 
-
-
 function App() {
-  
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <NavBar />
@@ -35,7 +32,11 @@ function App() {
         }}
       >
         <Switch>
-          <Route exact path="/countdown" component={Auth(BeforeCountDownPage, true)} />
+          <Route
+            exact
+            path="/countdown"
+            component={Auth(BeforeCountDownPage, true)}
+          />
           <Route exact path="/notice" component={Auth(NoticePage, true)} />
           <Route exact path="/subject" component={Auth(ApplyTablePage, true)} />
           <Route

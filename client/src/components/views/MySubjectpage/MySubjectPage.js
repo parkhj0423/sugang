@@ -71,7 +71,7 @@ function MySubjectPage(props) {
       countApply: (
         <CountApply AppliedSubject={MySubject[i]} subject={AppliedSubject} />
       ),
-      limitApply: 30,
+      limitApply: 5,
       competitionRate: (
         <CountApply
           AppliedSubject={MySubject[i]}
