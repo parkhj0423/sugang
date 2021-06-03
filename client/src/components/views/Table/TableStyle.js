@@ -13,6 +13,7 @@ export const tableHeader = css`
 `;
 
 export const tableHeaderTitle = css`
+  display: flex;
   letter-spacing: -2px;
   color: rgb(51, 51, 51);
   font-weight: 800;

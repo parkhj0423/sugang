@@ -1,6 +1,5 @@
 import React from "react";
 
-
 function Footer() {
   return (
     <div
@@ -15,7 +14,9 @@ function Footer() {
         marginLeft: "130px",
       }}
     >
-      <p>COPYRIGHT © SUNGKYUL UNIVERSITY. ALL RIGHT RESERVED.</p>
+      <p>
+        <b>COPYRIGHT © SUNGKYUL UNIVERSITY. ALL RIGHT RESERVED.</b>
+      </p>
     </div>
   );
 }

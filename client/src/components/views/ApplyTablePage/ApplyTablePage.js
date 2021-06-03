@@ -10,8 +10,9 @@ import {
   tableHeaderMenu,
   tableHeaderTitle,
 } from "../Table/TableStyle";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  applyDrawSubject,
   applySubject,
   getMySubject,
   getSubject,
@@ -22,6 +23,7 @@ import CountApply from "../Table/CountApply";
 
 function ApplyTablePage() {
   const userId = localStorage.getItem("userId");
+  const user = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const [Subject, setSubject] = useState([]);
   const [MySubject, setMySubject] = useState([]);
@@ -152,14 +154,25 @@ function ApplyTablePage() {
     }
 
     if (dateCheck(date) !== false) {
-      dispatch(applySubject(variable)).then((response) => {
-        if (response.payload.success) {
-          message.success("신청 성공");
-          refreshFunction(response.payload.result);
-        } else {
-          message.error("신청 실패");
-        }
-      });
+      if (user.grade === 4) {
+        dispatch(applySubject(variable)).then((response) => {
+          if (response.payload.success) {
+            message.success("신청 성공");
+            refreshFunction(response.payload.result);
+          } else {
+            message.error("신청 실패");
+          }
+        });
+      } else {
+        dispatch(applyDrawSubject(variable)).then((response) => {
+          if (response.payload.success) {
+            message.success("신청 성공");
+            refreshFunction(response.payload.result);
+          } else {
+            message.error("신청 실패");
+          }
+        });
+      }
     } else {
       message.error("동일한 시간대의 강의가 존재합니다");
       return;
@@ -280,17 +293,17 @@ function ApplyTablePage() {
       width: 100,
     },
     {
-      title: <b>신청</b>,
+      title: <b>추첨 신청</b>,
       key: "operation",
       fixed: "right",
-      width: 60,
+      width: 130,
       render: (record) => (
         <Button
           style={{ padding: "0 5px" }}
           type="primary"
           onClick={() => onApplyClick(record)}
         >
-          신청
+          강의 추첨하기
         </Button>
       ),
     },
