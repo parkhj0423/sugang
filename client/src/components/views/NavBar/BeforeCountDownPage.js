@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 const { Countdown } = Statistic;
 function BeforeCountDownPage(props) {
-  const [deadline] = useState(Date.now() + 1000 * 10);
+  const [deadline] = useState(Date.now() + 1000 * 2);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {

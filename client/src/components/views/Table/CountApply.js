@@ -1,7 +1,7 @@
 import React from "react";
 
 function CountApply(props) {
-  const { AppliedSubject, subject, competitionRate } = props;
+  const { AppliedSubject, subject, competitionRate, limit } = props;
 
   const countApply = () => {
     let applyCount = 0;
@@ -10,7 +10,11 @@ function CountApply(props) {
         applyCount += 1;
       }
     }
-    return applyCount;
+    if (limit) {
+      return limit - applyCount > 0 ? limit - applyCount : <b>마감&nbsp;<br/>(정원외 인원 만 신청 가능)</b>;
+    } else {
+      return applyCount;
+    }
   };
 
   const countCompetitionRate = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Icon, message, Table, Popconfirm } from "antd";
+import { Button, Icon, message, Table, Popconfirm, Tag } from "antd";
 /** @jsxFrag React.Fragment */
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
@@ -15,10 +15,18 @@ import {
   getMySubject,
 } from "../../../_actions/subject_actions";
 import CountApply from "../Table/CountApply";
+import styled from "@emotion/styled";
+import { SUBJECT_LIMIT } from "../../Config";
+
+const StyledTags = styled(Tag)`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
 
 function MySubjectPage(props) {
   //const userId = props.match.params.userId;
-   const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
   let totalPoint = 0;
 
@@ -71,7 +79,7 @@ function MySubjectPage(props) {
       countApply: (
         <CountApply AppliedSubject={MySubject[i]} subject={AppliedSubject} />
       ),
-      limitApply: 5,
+      limitApply: SUBJECT_LIMIT,
       competitionRate: (
         <CountApply
           AppliedSubject={MySubject[i]}
@@ -166,7 +174,7 @@ function MySubjectPage(props) {
       title: <b>과목 코드</b>,
       dataIndex: "subjectCode",
       key: "subjectCode",
-      width: 90,
+      width: 100,
     },
     {
       title: <b>강의실</b>,
@@ -203,6 +211,18 @@ function MySubjectPage(props) {
       dataIndex: "competitionRate",
       key: "competitionRate",
       width: 100,
+    },
+    {
+      title: <b>상태</b>,
+      dataIndex: "status",
+      key: "status",
+      width: 120,
+      render: () => (
+        <StyledTags color="green">
+          <Icon type="check-circle" />
+          신청완료
+        </StyledTags>
+      ),
     },
     {
       title: <b>취소</b>,
@@ -243,7 +263,7 @@ function MySubjectPage(props) {
         </div>
       </div>
       <Table
-        columns={columns} 
+        columns={columns}
         dataSource={data}
         sticky
         scroll={{ x: 1000, y: 500 }}

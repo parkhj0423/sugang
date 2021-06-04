@@ -20,6 +20,7 @@ import {
 
 import SearchTable from "./SearchTable";
 import CountApply from "../Table/CountApply";
+import { SUBJECT_LIMIT } from "../../Config";
 
 function ApplyTablePage() {
   const userId = localStorage.getItem("userId");
@@ -40,6 +41,7 @@ function ApplyTablePage() {
   let searchedData = [];
 
   useEffect(() => {
+    
     dispatch(getSubject()).then((response) => {
       if (response.payload.result) {
         message.success("강의 시간표 불러오기 성공");
@@ -80,7 +82,7 @@ function ApplyTablePage() {
       countApply: (
         <CountApply AppliedSubject={Subject[i]} subject={MySubject} />
       ),
-      limitApply: 5,
+      limitApply: SUBJECT_LIMIT,
       competitionRate: (
         <CountApply
           AppliedSubject={Subject[i]}
@@ -254,7 +256,7 @@ function ApplyTablePage() {
       title: <b>과목 코드</b>,
       dataIndex: "subjectCode",
       key: "subjectCode",
-      width: 90,
+      width: 100,
     },
     {
       title: <b>강의실</b>,
