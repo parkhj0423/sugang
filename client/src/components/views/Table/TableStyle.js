@@ -21,7 +21,7 @@ export const tableHeaderTitle = css`
 `;
 
 export const subTitle = css`
-padding-left: 15px;
+  padding-left: 15px;
   line-height: 1.3;
   font-size: 18px;
   color: #4974b2;

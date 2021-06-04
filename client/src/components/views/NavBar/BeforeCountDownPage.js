@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 const { Countdown } = Statistic;
 function BeforeCountDownPage(props) {
-  const [deadline] = useState(Date.now() + 1000 * 2);
+  const [deadline] = useState(Date.now() + 1000 * 15);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
@@ -26,9 +26,9 @@ function BeforeCountDownPage(props) {
           <Icon
             type="info-circle"
             theme="twoTone"
-            style={{ fontSize: "1.5rem",marginRight:'10px' }}
+            style={{ fontSize: "1.5rem", marginRight: "10px" }}
           />
-          <b>지금은 수강신청 기간이 아닙니다.  </b>
+          <b>지금은 수강신청 기간이 아닙니다. </b>
           <Countdown
             format="ss"
             value={deadline}

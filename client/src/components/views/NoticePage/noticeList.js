@@ -253,4 +253,103 @@ export const seasonList = [
   },
 ];
 
+export const drawList = [
+  {
+    icon: (
+      <Img
+        src="https://www.sungkyul.ac.kr/sites/guide/images/common/bul-list2.png"
+        alt="icon"
+      />
+    ),
+    text: (
+      <span>
+        수강희망과목 추첨제도는 과목 등록기간 동안 언제든 본인의 수강신청 가능
+        학점만큼 수강희망과목을 등록하고, 그 결과 수강희망과목 등록인원 ≤ 학년별
+        또는 전체 수강제한인원(정원) 이면 모두 수강신청 처리, 수강희망과목
+        등록인원이 정원을 초과 하면 학년별 또는 전체 정원의 일부만 우선순위 기반
+        추첨을 통해 수강신청 처리됩니다.
+      </span>
+    ),
+  },
+  {
+    icon: (
+      <Img
+        src="https://www.sungkyul.ac.kr/sites/guide/images/common/bul-list2.png"
+        alt="icon"
+      />
+    ),
+    text: (
+      <span>
+        수강희망과목 등록 기간 후 교수님이 수강인원 조정기간이 있습니다.
+        교수님의 조정을 반영하여 수강희망과목등록 결과가 전산 처리됩니다.
+      </span>
+    ),
+  },
+  {
+    icon: (
+      <Img
+        src="https://www.sungkyul.ac.kr/sites/guide/images/common/bul-list2.png"
+        alt="icon"
+      />
+    ),
+    text: (
+      <span>
+        수강신청 처리 여부는 수강신청 서버 오픈 후 24시간 이후 자동으로 진행되며
+        수강신청 사이트(
+        <a href="http://sugang.sungkyul.ac.kr">http://sugang.sungkyul.ac.kr</a>
+        )에 접속하여 수강신청 내역조회를 통해 확인할 수 있습니다.
+      </span>
+    ),
+  },
+];
+
+export const exchangeList = [
+  {
+    icon: (
+      <Img
+        src="https://www.sungkyul.ac.kr/sites/guide/images/common/bul-list2.png"
+        alt="icon"
+      />
+    ),
+    text: (
+      <span>
+        수강과목 교환제도는 과목 등록기간 동안 언제든 본인이 수강신청한 강의를
+        분반만 다르다는 조건 하에 다른 강의과 교환할 수 있는 기능입니다.
+        <br />
+        양쪽에서 교환 신청을 했을때 자동으로 강의 교환이 이루어집니다. 이때
+        불법적으로 금전거래를 진행하는 경우를 막기 위해 익명으로 진행됩니다.
+      </span>
+    ),
+  },
+  {
+    icon: (
+      <Img
+        src="https://www.sungkyul.ac.kr/sites/guide/images/common/bul-list2.png"
+        alt="icon"
+      />
+    ),
+    text: (
+      <span>
+        강의마다 교환 가능 여부는 각각 다르오니 해당 교수님께 문의드리기
+        바랍니다.
+      </span>
+    ),
+  },
+  {
+    icon: (
+      <Img
+        src="https://www.sungkyul.ac.kr/sites/guide/images/common/bul-list2.png"
+        alt="icon"
+      />
+    ),
+    text: (
+      <span>
+        수강과목 교환 처리 여부는 수강신청 사이트(
+        <a href="http://sugang.sungkyul.ac.kr">http://sugang.sungkyul.ac.kr</a>
+        )에 접속하여 수강신청 내역조회를 통해 확인할 수 있습니다.
+      </span>
+    ),
+  },
+];
+
 export default noticeList;

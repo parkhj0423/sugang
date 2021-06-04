@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   applyDrawSubject,
   applySubject,
+  getDrawSubject,
   getMySubject,
   getSubject,
 } from "../../../_actions/subject_actions";
@@ -28,6 +29,7 @@ function ApplyTablePage() {
   const dispatch = useDispatch();
   const [Subject, setSubject] = useState([]);
   const [MySubject, setMySubject] = useState([]);
+  const [MyDrawSubject, setMyDrawSubject] = useState([]);
   const [IsSearch, setIsSearch] = useState(false);
   const [SearchComplete, setSearchComplete] = useState([]);
 
@@ -41,13 +43,24 @@ function ApplyTablePage() {
   let searchedData = [];
 
   useEffect(() => {
-    
+    let variable = {
+      user: userId,
+    };
+
     dispatch(getSubject()).then((response) => {
       if (response.payload.result) {
         message.success("강의 시간표 불러오기 성공");
         setSubject(response.payload.result);
       } else {
         message.error("강의 시간표 불러오기 실패");
+      }
+    });
+
+    dispatch(getDrawSubject(variable)).then((response) => {
+      if (response.payload.result) {
+        setMyDrawSubject(response.payload.result);
+      } else {
+        message.error("불러오기 실패");
       }
     });
 
@@ -93,11 +106,21 @@ function ApplyTablePage() {
     });
   }
 
-  if (MySubject !== undefined && data.length !== 0) {
+  if (
+    MySubject !== undefined &&
+    MyDrawSubject !== undefined &&
+    data.length !== 0
+  ) {
     filteredData = data;
     for (let i = 0; i < appliedSubject.length; i++) {
       filteredData = filteredData.filter(
         (item) => item.subjectId !== appliedSubject[i].subjectId
+      );
+    }
+
+    for (let i = 0; i < MyDrawSubject.length; i++) {
+      filteredData = filteredData.filter(
+        (item) => item.subjectId !== MyDrawSubject[i].subjectId
       );
     }
   }

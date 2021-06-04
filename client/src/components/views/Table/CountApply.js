@@ -11,7 +11,15 @@ function CountApply(props) {
       }
     }
     if (limit) {
-      return limit - applyCount > 0 ? limit - applyCount : <b>마감&nbsp;<br/>(정원외 인원 만 신청 가능)</b>;
+      return limit - applyCount > 0 ? (
+        limit - applyCount
+      ) : (
+        <b style={{ fontSize: "0.7rem" }}>
+          마감&nbsp;
+          <br />
+          (정원외 인원 만 신청 가능)
+        </b>
+      );
     } else {
       return applyCount;
     }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, message, Table } from "antd";
+import { Button, Divider, message, Table } from "antd";
 /** @jsx jsx */
 import { jsx, css } from "@emotion/react";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,15 @@ import {
 } from "../../../_actions/subject_actions";
 import { tableHeaderTitle, container } from "../Table/TableStyle";
 import ExchangeModal from "./ExchangeModal";
-import Accordion from "../Table/Accordion";
+import styled from "@emotion/styled";
+import { exchangeList } from "../NoticePage/noticeList";
+const Li = styled.li`
+  list-style: none;
+  color: #666;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+`;
 
 export default function ExchangeSubjectPage() {
   const dispatch = useDispatch();
@@ -223,7 +231,23 @@ export default function ExchangeSubjectPage() {
         handleCancel={handleCancel}
         data={SelectedData}
       />
-      <Accordion/>
+      <div
+        css={css`
+          margin-top: 5rem;
+        `}
+      >
+        <Divider orientation="left">
+          <b>수강과목 교환제도 안내</b>
+        </Divider>
+        <ul>
+          {exchangeList.map((item, i) => (
+            <Li key={i}>
+              {item.icon}
+              {item.text}
+            </Li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

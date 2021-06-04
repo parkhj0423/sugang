@@ -18,6 +18,7 @@ import {
   Divider,
   Popconfirm,
   Button,
+  Result,
 } from "antd";
 import CountApply from "../Table/CountApply";
 import {
@@ -28,8 +29,17 @@ import {
 } from "../Table/TableStyle";
 import styled from "@emotion/styled";
 import { COUNTDOWN, SUBJECT_LIMIT } from "../../Config";
+import { drawList } from "../NoticePage/noticeList";
 
 const { Countdown } = Statistic;
+
+const Li = styled.li`
+  list-style: none;
+  color: #666;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+`;
 
 const StyledTags = styled(Tag)`
   display: flex;
@@ -43,6 +53,7 @@ function DrawSubjectPage() {
   const [MyDrawSubject, setMyDrawSubject] = useState([]);
   const [AppliedDrawSubejct, setAppliedDrawSubejct] = useState([]);
   const [MySubject, setMySubject] = useState([]);
+  const [ResultState, setResultState] = useState(false);
   const [deadline] = useState(COUNTDOWN);
 
   useEffect(() => {
@@ -114,7 +125,7 @@ function DrawSubjectPage() {
   const columns = [
     {
       title: <b>학과</b>,
-      width: 185,
+      width: 150,
       dataIndex: "department",
       key: "department",
       fixed: "left",
@@ -128,7 +139,7 @@ function DrawSubjectPage() {
     },
     {
       title: <b>과목명</b>,
-      width: 250,
+      width: 150,
       dataIndex: "subjectName",
       key: "subjectName",
       fixed: "left",
@@ -168,7 +179,7 @@ function DrawSubjectPage() {
       title: <b>강의실</b>,
       dataIndex: "classroom",
       key: "classroom",
-      width: 150,
+      width: 100,
     },
     {
       title: <b>분반</b>,
@@ -189,10 +200,10 @@ function DrawSubjectPage() {
       width: 100,
     },
     {
-      title: <b>남은 자리</b>,
+      title: <b>공석</b>,
       dataIndex: "available",
       key: "available",
-      width: 230,
+      width: 100,
     },
     {
       title: <b>상태</b>,
@@ -278,10 +289,10 @@ function DrawSubjectPage() {
       drawData = drawData.filter((item) => {
         return item.subjectId !== drawData[i].subjectId;
       });
-
+      // 정원보다 많은 신청자가 있을 경우
       if (filteredData.length > SUBJECT_LIMIT) {
         const winning = selectIndex(filteredData.length, SUBJECT_LIMIT);
-
+        console.log(winning);
         for (let i = 0; i < winning.length; i++) {
           let applyVariable = {
             subjectId: filteredData[winning[i]].subjectId,
@@ -298,16 +309,19 @@ function DrawSubjectPage() {
             division: filteredData[winning[i]].division,
           };
 
-          let deleteVariable = {
-            subjectId: filteredData[winning[i]].subjectId,
-            user: filteredData[winning[i]].user._id,
-          };
           //console.log(filteredData[winning[i]]);
           dispatch(applySubject(applyVariable));
+        }
 
+        for (let i = 0; i < filteredData.length; i++) {
+          let deleteVariable = {
+            subjectId: filteredData[i].subjectId,
+            user: filteredData[i].user._id,
+          };
           dispatch(deleteDrawSubject(deleteVariable));
         }
       } else {
+        // 정원보다 적은 신청자가 있을경우
         for (let i = 0; i < filteredData.length; i++) {
           let applyVariable = {
             subjectId: filteredData[i].subjectId,
@@ -334,34 +348,65 @@ function DrawSubjectPage() {
           dispatch(deleteDrawSubject(deleteVariable));
         }
       }
-      message.success(
-        "강의 추첨이 끝났습니다. 수강신청내역에서 결과를 확인해 주세요!"
-      );
     }
+    message.success(
+      "강의 추첨이 끝났습니다. 수강신청내역에서 결과를 확인해 주세요!"
+    );
+    setResultState(true);
   };
 
   return (
     <React.Fragment>
-      <div css={container}>
-        <div css={tableHeader}>
-          <p css={tableHeaderTitle}>
-            강의 추첨까지 남은 시간 : &nbsp;
-            <Countdown
-              format="HH:mm:ss"
-              value={deadline}
-              onFinish={onCountDownFinish}
-              valueStyle={{ color: "red" }}
-            />
-          </p>
-          <div css={tableHeaderMenu}>
-            * 추첨신청한 모든 과목들에 대하여 일괄 추첨이 이루어 집니다. *
+      {ResultState ? (
+        <Result
+          status="warning"
+          title="강의 추첨기간이 아닙니다! "
+          subTitle="수강신청내역에서 추첨결과를 확인하여주시기 바랍니다."
+        />
+      ) : (
+        <div css={container}>
+          <div css={tableHeader}>
+            <p css={tableHeaderTitle}>
+              강의 추첨까지 남은 시간 : &nbsp;
+              <Countdown
+                format="HH:mm:ss"
+                value={deadline}
+                onFinish={onCountDownFinish}
+                valueStyle={{ color: "red" }}
+              />
+            </p>
+            <div css={tableHeaderMenu}>
+              * 추첨신청한 모든 과목들에 대하여 일괄 추첨이 이루어 집니다. *
+            </div>
+          </div>
+          <Divider orientation="left">
+            <b>내가 신청한 강의 목록</b>
+          </Divider>
+          <Table
+            sticky
+            columns={columns}
+            dataSource={data}
+            pagination={false}
+          />
+          <div
+            css={css`
+              margin-top: 5rem;
+            `}
+          >
+            <Divider orientation="left">
+              <b>수강희망과목 추첨제도 안내</b>
+            </Divider>
+            <ul>
+              {drawList.map((item, i) => (
+                <Li key={i}>
+                  {item.icon}
+                  {item.text}
+                </Li>
+              ))}
+            </ul>
           </div>
         </div>
-        <Divider orientation="left">
-          <b>내가 신청한 강의 목록</b>
-        </Divider>
-        <Table columns={columns} dataSource={data} pagination={false} />
-      </div>
+      )}
     </React.Fragment>
   );
 }
