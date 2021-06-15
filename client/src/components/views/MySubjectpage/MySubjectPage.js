@@ -41,7 +41,7 @@ function MySubjectPage(props) {
       if (response.payload.result) {
         message.success("내 강의 불러오기 성공");
         setMySubject(response.payload.result);
-        //console.log(response.payload.result);
+        
       } else {
         message.error("불러오기 실패");
       }
@@ -49,7 +49,7 @@ function MySubjectPage(props) {
     dispatch(getMySubject()).then((response) => {
       if (response.payload.result) {
         setAppliedSubject(response.payload.result);
-        //console.log("AppliedSubject", response.payload.result);
+        
       } else {
         message.error("불러오기 실패");
       }

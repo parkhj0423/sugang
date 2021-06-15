@@ -71,7 +71,7 @@ function DrawSubjectPage() {
     // 내가 추첨 신청을한 강의
     dispatch(getDrawSubject()).then((response) => {
       if (response.payload.result) {
-        console.log(response.payload.result);
+        
         setAppliedDrawSubejct(response.payload.result);
       } else {
         message.error("불러오기 실패");
@@ -292,7 +292,7 @@ function DrawSubjectPage() {
       // 정원보다 많은 신청자가 있을 경우
       if (filteredData.length > SUBJECT_LIMIT) {
         const winning = selectIndex(filteredData.length, SUBJECT_LIMIT);
-        console.log(winning);
+       
         for (let i = 0; i < winning.length; i++) {
           let applyVariable = {
             subjectId: filteredData[winning[i]].subjectId,

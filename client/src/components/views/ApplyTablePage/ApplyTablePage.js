@@ -153,7 +153,7 @@ function ApplyTablePage() {
       division,
       // rate,
     } = data;
-    console.log(data);
+ 
     let variable = {
       subjectId,
       user: localStorage.getItem("userId"),
@@ -171,7 +171,7 @@ function ApplyTablePage() {
     };
 
     totalPoint += subjectPoint;
-    console.log(totalPoint);
+    
 
     if (totalPoint > 21) {
       message.error("21학점 이상 신청할 수 없습니다.");
@@ -205,10 +205,10 @@ function ApplyTablePage() {
   };
 
   const onSearch = (searchedProps) => {
-    console.log(searchedProps);
+    
     searchedData = filteredData;
     for (let key in searchedProps) {
-      console.log(`${key} : ${searchedProps[key]}`);
+     
 
       if (key === "date") {
         searchedData = searchedData.filter(
