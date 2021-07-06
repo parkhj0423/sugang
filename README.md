@@ -52,30 +52,30 @@ module.exports = {
 
 ## Tech Stack
 
-### Front-end
+- Front-end
 
-<img src="https://img.shields.io/badge/react.js-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-<img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
-<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
-<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white">
-<img src="https://img.shields.io/badge/Antdesign-0170FE?style=for-the-badge&logo=AntDesign&logoColor=white">
+    <img src="https://img.shields.io/badge/react.js-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+    <img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+    <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+    <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white">
+    <img src="https://img.shields.io/badge/Antdesign-0170FE?style=for-the-badge&logo=AntDesign&logoColor=white">
 
-### Back-end
+- Back-end
 
-<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white">
-<img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=Express&logoColor=white">
-<img src="https://img.shields.io/badge/Mongo DB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">
+    <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white">
+    <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=Express&logoColor=white">
+    <img src="https://img.shields.io/badge/Mongo DB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">
 
-### Server
+- Server
 
-<img src="https://img.shields.io/badge/linux-FCC624?style=for-the-badge&logo=linux&logoColor=black">
-<img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=black">
-<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=black">
+    <img src="https://img.shields.io/badge/linux-FCC624?style=for-the-badge&logo=linux&logoColor=black">
+    <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=black">
+    <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=black">
 
-### ETC
+- ETC
 
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
+    <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+    <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
 
 ## Architecture
 
@@ -94,31 +94,41 @@ module.exports = {
 
 ## Demo
 
-### 메인페이지
-
-- 첫화면을 로그인 페이지로 변경하고 로그인을 진행 후 랜딩페이지로 들어가게끔 수정
-- Nav 컴포넌트를 좌측에도 배치에 원하는 탭으로 용이하게 이동할 수 있게 수정
+### **메인페이지**
+#### 첫화면을 로그인 페이지로 변경하고 로그인을 진행 후 랜딩페이지로 들어가게끔 수정
+#### Nav 컴포넌트를 좌측에도 배치에 원하는 탭으로 용이하게 이동할 수 있게 수정
 
 ![readme1](<./img/(04.01)1.png>)
 ![readme2](<./img/(04.01)2.png>)
 
-### 강의 신청, 삭제, 조회 기능
+### **모의 수강신청 기능**
+#### 실제 수강신청 프로세스와 유사하게 타이머, 제한시간등을 둬 수강신청기간이 아니여도  모의 테스트 가능
 
-- 강의 신청, 삭제, 조회 등 기본적인 수강신청에 필요한 기능
+![readme1](<./img/time1.png>)
+![readme1](<./img/time2.png>)
+
+### **강의 신청, 삭제, 조회 기능**
+
+#### 강의 신청, 삭제, 조회 등 기본적인 수강신청에 필요한 기능
 
 ![readme1](<./img/(04.27)1.png>)
 ![readme1](<./img/(04.27)2.png>)
 ![readme1](<./img/(04.27)3.png>)
 
-### 강의 교환
+### **강의 교환**
+#### 사용자 A와 사용자 B가 모두 같은 강의명, 교수명의 강의 교환에 동의할 경우 자동 교환
+#### 강의 금전거래를 방지하기위해 익명으로 진행
 
 ![readme1](<./img/(05.18)1.png>)
 ![readme1](<./img/(05.18)2.png>)
 
-### 시간표
+### **시간표**
+#### 날짜별 본인이 신청한 시간표 확인 가능
 
 ![readme1](<./img/(04.27)4.png>)
 
+### **강의 추첨**
+#### 4학년인 경우는 추첨 제외 -> 바로 신청 가능 
+#### 24시간 이후 자동 추첨 -> 추첨결과는 수강신청 내역에서 확인 가능
 
-### 강의 추첨
-![readme1](<./img/draw.png>)
+![readme1](./img/draw.png)
