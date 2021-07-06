@@ -36,7 +36,6 @@ export default function ExchangeSubjectPage() {
       if (response.payload.result) {
         message.success("내 강의 불러오기 성공");
         setMySubject(response.payload.result);
-     
       } else {
         message.error("불러오기 실패");
       }
@@ -45,7 +44,6 @@ export default function ExchangeSubjectPage() {
     dispatch(getMySubject()).then((response) => {
       if (response.payload.result) {
         setAppliedSubject(response.payload.result);
-       
       } else {
         message.error("불러오기 실패");
       }
@@ -53,7 +51,6 @@ export default function ExchangeSubjectPage() {
 
     dispatch(switchExchangeSubject()).then((response) => {
       if (response.payload.success) {
-       
         message.success("강의 교환 성공");
       }
     });
@@ -172,7 +169,6 @@ export default function ExchangeSubjectPage() {
   ];
 
   const showModal = (data) => {
-   
     setVisible(true);
     setSelectedData(data);
   };
@@ -188,7 +184,7 @@ export default function ExchangeSubjectPage() {
         subject.date !== SelectedData.date &&
         subject.professorName === SelectedData.professorName
     );
-   
+
     let variable = {
       user: userId,
       subjectId: SelectedData.subjectId,
@@ -201,7 +197,6 @@ export default function ExchangeSubjectPage() {
       if (response.payload.success) {
         message.success("교환 신청 완료");
         // refreshFunction(response.payload.result);
-      
       } else {
         message.error("이미 신청했거나 교환 신청에 문제가 생겼습니다.");
       }

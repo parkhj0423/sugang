@@ -118,3 +118,7 @@ module.exports = {
 ### 시간표
 
 ![readme1](<./img/(04.27)4.png>)
+
+
+### 강의 추첨
+![readme1](<./img/draw.png>)

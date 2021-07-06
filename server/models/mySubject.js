@@ -40,18 +40,6 @@ const mySubjectSchema = mongoose.Schema(
     division: {
       type: String,
     },
-    // rate: {
-    //   type: String,
-    // },
-    // countApply: {
-    //   type: String,
-    // },
-    // limitApply: {
-    //   type: String,
-    // },
-    // competitionRate: {
-    //   type: String,
-    // },
   },
   { timestamps: true }
 );
